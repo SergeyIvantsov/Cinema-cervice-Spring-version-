@@ -7,7 +7,6 @@
 
     <include file="db/changelog/V1.0.1/2025-02-02-add-new-column-for-films.xml"/>
     <include file="db/changelog/V1.0.1/2025-02-02-fill-id_director-in-films.xml"/>
-    <include file="/db/changelog/V1.0.1/2025-02-03-delete-directorString-from-films_and_update_fields.xml"/>
 
 
 </databaseChangeLog>

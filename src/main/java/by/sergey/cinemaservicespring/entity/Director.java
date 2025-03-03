@@ -25,7 +25,7 @@ public class Director implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "id_director")
-    private Integer id;
+    private Long id;
 
     @Column
     private String directorName;

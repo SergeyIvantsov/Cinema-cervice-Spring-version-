@@ -8,7 +8,7 @@
 
 <changeSet id="create_dir" author="sergey">
         <createTable tableName="directors">
-            <column name="id_director" type="INT" autoIncrement="true">
+            <column name="id_director" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="directorName" type="VARCHAR(255)">

@@ -8,10 +8,10 @@
 
 <changeSet id="1" author="sergey">
         <createTable tableName="film_actors">
-            <column name="film_id" type="INT">
+            <column name="film_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="actor_id" type="INT">
+            <column name="actor_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
 

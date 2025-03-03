@@ -24,7 +24,7 @@ public class Account implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @OneToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn

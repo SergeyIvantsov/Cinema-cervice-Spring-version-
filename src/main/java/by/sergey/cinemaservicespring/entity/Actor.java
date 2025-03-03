@@ -24,7 +24,7 @@ public class Actor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer id;
+    private Long id;
 
     @Column(name = "actor_name")
     private String actorName;

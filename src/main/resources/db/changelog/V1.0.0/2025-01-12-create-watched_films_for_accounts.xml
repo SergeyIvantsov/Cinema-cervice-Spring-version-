@@ -8,10 +8,10 @@
 
 <changeSet id="1" author="sergey">
         <createTable tableName="watched_films_for_accounts">
-            <column name="account_id" type="INT">
+            <column name="account_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="watched_film_id" type="INT">
+            <column name="watched_film_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
 

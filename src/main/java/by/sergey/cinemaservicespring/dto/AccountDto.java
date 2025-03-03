@@ -13,7 +13,7 @@ import java.util.Set;
 @Builder
 @Data
 public class AccountDto {
-    private Integer id;
+    private Long id;
     private UserDto userDto;
 
     private Set<FilmDto> desiredFilms = new HashSet<>();

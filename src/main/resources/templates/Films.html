@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+xmlns:sec="http://www.springframework.org.shema.security"
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Film Service!</title>
+    <!--    след. строчка для подключения стилей css ссылкой через thymeleaf (th)-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
+</head>
+<body>
+<h1>All Films:</h1>
+</br>
+<table border="1">
+    <tr>
+        <th><B>Film id</B></th>
+        <th><B>Film title</B></th>
+        <th><B>Film description</B></th>
+        <th><B>Film year</B></th>
+        <th><B>Film genre</B></th>
+        <th><B>Film director</B></th>
+
+    </tr>
+    <tr th:each="film : ${allFilms}">
+        <td th:utext="${film.id}">...</td>
+        <td th:utext="${film.title}">...</td>
+        <td th:utext="${film.description}">...</td>
+        <td th:utext="${film.year}">...</td>
+        <td th:utext="${film.genre}">...</td>
+        <td th:utext="${film.director}">...</td>
+    </tr>
+</table>
+
+<!--все поля: добавить город, ошибка доступны только для пользователя ADMIN-->
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+
+<!--    <form th:action="@{/addCity}"-->
+<!--          th:object="${addCity}" method="POST">-->
+<!--        Name:-->
+<!--        <div th:if="${#fields.hasErrors('name')}">-->
+<!--            <span th:errors="*{name}" class="error"></span>-->
+<!--        </div>-->
+<!--        <input type="text" th:field="*{name}"/>-->
+<!--        </br>-->
+<!--        Location:-->
+<!--        <input type="text" th:field="*{location}"/>-->
+<!--        </br>-->
+<!--        <input type="submit" value="Добавить город"/>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+</body>
+
+</html>

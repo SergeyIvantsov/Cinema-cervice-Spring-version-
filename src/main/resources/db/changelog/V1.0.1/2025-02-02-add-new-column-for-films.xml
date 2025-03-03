@@ -8,7 +8,7 @@
 
 <changeSet id="22" author="sergey">
         <addColumn tableName="films">
-            <column name="director_id" type="INT">
+            <column name="director_id" type="bigint">
                 <constraints nullable="true"/>
             </column>
         </addColumn>

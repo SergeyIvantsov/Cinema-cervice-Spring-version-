@@ -8,10 +8,10 @@
 
 <changeSet id="1" author="sergey">
         <createTable tableName="accounts">
-            <column name="id" type="INT" autoIncrement="true">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="userId" type="INT">
+            <column name="userId" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
