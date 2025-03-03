@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+
+<changeSet id="1" author="sergey">
+        <createTable tableName="watched_films_for_accounts">
+            <column name="account_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="watched_film_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="sergey">
+        <addForeignKeyConstraint baseTableName="watched_films_for_accounts"
+                                 baseColumnNames="account_id"
+                                 constraintName="watched_films_for_accounts_account_id"
+                                 referencedTableName="accounts"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="3" author="sergey">
+        <addForeignKeyConstraint baseTableName="watched_films_for_accounts"
+                                 baseColumnNames="watched_film_id"
+                                 constraintName="watched_films_for_accounts_film_id"
+                                 referencedTableName="films"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

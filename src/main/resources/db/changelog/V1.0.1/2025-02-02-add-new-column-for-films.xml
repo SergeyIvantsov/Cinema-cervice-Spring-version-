@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+
+<changeSet id="22" author="sergey">
+        <addColumn tableName="films">
+            <column name="director_id" type="INT">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint
+                baseTableName="films"
+                baseColumnNames="director_id"
+                referencedTableName="directors"
+                referencedColumnNames="id_director"
+                constraintName="fk_films_directors"/>
+    </changeSet>
+
+
+</databaseChangeLog>

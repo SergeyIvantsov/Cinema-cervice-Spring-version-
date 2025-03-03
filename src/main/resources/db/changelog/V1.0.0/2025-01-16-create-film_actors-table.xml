@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+
+<changeSet id="1" author="sergey">
+        <createTable tableName="film_actors">
+            <column name="film_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="actor_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+    </changeSet>
+
+    <changeSet id="2" author="sergey">
+        <addForeignKeyConstraint baseTableName="film_actors"
+                                 baseColumnNames="film_id"
+                                 constraintName="film_actors_film_id"
+                                 referencedTableName="films"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="3" author="sergey">
+        <addForeignKeyConstraint baseTableName="film_actors"
+                                 baseColumnNames="actor_id"
+                                 constraintName="film_actors_actor_id"
+                                 referencedTableName="actors"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

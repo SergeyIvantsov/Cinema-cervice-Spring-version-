@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+<changeSet id="fill_dir" author="sergey">
+
+        <insert tableName="directors">
+            <column name="id_director" value="1"/>
+            <column name="directorName" value="Александр"/>
+            <column name="directorSurname" value="Серый"/>
+        </insert>
+
+        <insert tableName="directors">
+            <column name="id_director" value="2"/>
+            <column name="directorName" value="Ридли"/>
+            <column name="directorSurname" value="Скотт"/>
+        </insert>
+
+        <insert tableName="directors">
+            <column name="id_director" value="3"/>
+            <column name="directorName" value="Леонид"/>
+            <column name="directorSurname" value="Гайдай"/>
+        </insert>
+
+        <insert tableName="directors">
+            <column name="id_director" value="4"/>
+            <column name="directorName" value="Джон"/>
+            <column name="directorSurname" value="Карпентер"/>
+        </insert>
+
+        <insert tableName="directors">
+            <column name="id_director" value="5"/>
+            <column name="directorName" value="Клод"/>
+            <column name="directorSurname" value="Зиди"/>
+        </insert>
+
+        <insert tableName="directors">
+            <column name="id_director" value="6"/>
+            <column name="directorName" value="Ален"/>
+            <column name="directorSurname" value="Шаба"/>
+        </insert>
+
+        <insert tableName="directors">
+            <column name="id_director" value="7"/>
+            <column name="directorName" value="Леонид"/>
+            <column name="directorSurname" value="Гайдай"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
