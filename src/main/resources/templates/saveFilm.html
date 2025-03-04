@@ -9,7 +9,7 @@
 
 <body>
 <h3>Добавить фильм</h3>
-<form th:action="@{/save}" th:object="${addFilm}" method="post">
+<form th:action="@{/saveFilm}" th:object="${addFilm}" method="post">
     <input type="hidden" th:field="*{id}">
    <div>
     <label>

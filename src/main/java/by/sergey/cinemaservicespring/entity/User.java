@@ -21,7 +21,7 @@ public class User implements Serializable {
     @Column
     private Long id;
 
-    @Column
+    @Column (name = "user_name")
     private String userName;
 
     @OneToOne(mappedBy ="user", cascade= CascadeType.ALL,

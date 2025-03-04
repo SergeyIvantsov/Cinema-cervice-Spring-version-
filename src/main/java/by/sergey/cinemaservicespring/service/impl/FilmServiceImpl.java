@@ -18,21 +18,7 @@ import java.util.stream.Collectors;
 public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
-//    private final ConverterUtil converterUtil;
 
-//
-//    public FilmDto save(FilmDto filmDto) {
-//        Film film = ConverterUtil.convertFilm(filmDto);
-//        Film save;
-//        try {
-//            save = filmRepository.save(film);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new RuntimeException(e);
-//        }
-//        filmDto.setId(save.getId());
-//        return filmDto;
-//    }
 
     @Override
     public FilmDto get(Long id) {

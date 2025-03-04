@@ -34,10 +34,10 @@ public class FilmController {
         return "saveFilm";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/saveFilm")
     public String saveOrUpdate(@ModelAttribute("addFilm") FilmDto filmDto) {
         filmService.saveOrUpdate(filmDto);
-        return "films";
+        return "redirect:/getFilms";
 
     }
 }
