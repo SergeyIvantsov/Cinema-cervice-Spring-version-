@@ -29,12 +29,12 @@ public class FilmController {
 
     @GetMapping("/saveFilm")
     public String toSaveFilm(Model model) {
-        model.addAttribute("addFilm", new Film());
+        model.addAttribute("addFilm", new FilmDto());
         model.addAttribute("allDirectors", directorService.getAll());
         return "saveFilm";
     }
 
-    @PostMapping("/saveFilm")
+    @PostMapping("/save")
     public String saveOrUpdate(@ModelAttribute("addFilm") FilmDto filmDto) {
         filmService.saveOrUpdate(filmDto);
         return "redirect:/getFilms";

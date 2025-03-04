@@ -1,7 +1,9 @@
 package by.sergey.cinemaservicespring.service.impl;
 
 import by.sergey.cinemaservicespring.dto.FilmDto;
+import by.sergey.cinemaservicespring.entity.Director;
 import by.sergey.cinemaservicespring.entity.Film;
+import by.sergey.cinemaservicespring.repository.DirectorRepository;
 import by.sergey.cinemaservicespring.repository.FilmRepository;
 import by.sergey.cinemaservicespring.service.FilmService;
 import by.sergey.cinemaservicespring.utils.converter.ConverterUtil;
@@ -18,7 +20,7 @@ import java.util.stream.Collectors;
 public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
-
+    private final DirectorRepository directorRepository;
 
     @Override
     public FilmDto get(Long id) {
@@ -57,9 +59,12 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public FilmDto saveOrUpdate(FilmDto filmDto) {
+        Director referenceById = directorRepository.getReferenceById(filmDto.getDirector().getId());
         Film film = ConverterUtil.convertFilm(filmDto);
+        film.setDirector(referenceById);
+        Film save = filmRepository.save(film);
         if (film != null) {
-            return ConverterUtil.convertFilm(filmRepository.save(film));
+            return ConverterUtil.convertFilm(save);
         }
         return null;
     }

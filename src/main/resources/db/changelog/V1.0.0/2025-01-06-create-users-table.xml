@@ -15,9 +15,7 @@
             <column name="user_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-<!--            <column name="email" type="VARCHAR(255)">-->
-<!--                <constraints nullable="false"/>-->
-<!--            </column>-->
+
 
         </createTable>
     </changeSet>

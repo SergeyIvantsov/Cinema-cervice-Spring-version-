@@ -24,7 +24,8 @@ public class FilmDto {
 
     private String genre;
 
-    private DirectorDto director;
+    @Builder.Default
+    private DirectorDto director=new DirectorDto();
 
     private Set<ActorDto> actorsDto = new HashSet<>();
 

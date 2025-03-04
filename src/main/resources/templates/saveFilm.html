@@ -9,7 +9,7 @@
 
 <body>
 <h3>Добавить фильм</h3>
-<form th:action="@{/saveFilm}" th:object="${addFilm}" method="post">
+<form th:action="@{/save}" th:object="${addFilm}" method="post">
     <input type="hidden" th:field="*{id}">
    <div>
     <label>
@@ -43,7 +43,7 @@
     <div>
     <label>
         Select film director:
-        <select th:field="*{director}" required>
+        <select th:field="*{director.id}" required>
             <option value="" selected>---Select Director---</option>
             <option th:each="director : ${allDirectors}"
                     th:value="${director.id}"
@@ -76,5 +76,4 @@
 
 <a th:href="@{/getFilms}">Return to All Films</a>
 </body>
-
 </html>
