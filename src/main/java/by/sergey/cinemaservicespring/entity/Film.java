@@ -38,7 +38,6 @@ public class Film implements Serializable {
     @JoinColumn (name = "director_id")
     private Director director;
 
-
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.REFRESH},
             mappedBy = "desiredFilms")

@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/html"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
-xmlns:sec="http://www.springframework.org.shema.security"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to the Film Service!</title>
-    <!--    след. строчка для подключения стилей css ссылкой через thymeleaf (th)-->
+    <title>Welcome to the Cinema Service!</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-
 </head>
+
+
 <body>
-<h1>All Films:</h1>
+<br/>
+<a th:href="@{/saveFilm}"><h3>Добавить фильм в общий список:</h3></a><br/>
+<br/>
+
+<h1>Список всех фильмов:</h1>
 </br>
-<table border="1">
+<table>
     <tr>
         <th><B>Film id</B></th>
         <th><B>Film title</B></th>
@@ -29,7 +31,10 @@ xmlns:sec="http://www.springframework.org.shema.security"
         <td th:utext="${film.description}">...</td>
         <td th:utext="${film.year}">...</td>
         <td th:utext="${film.genre}">...</td>
-        <td th:utext="${film.director}">...</td>
+        <td>
+        <span th:utext="${film.getDirector().getDirectorName()}"></span>
+        <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
+        </td>
     </tr>
 </table>
 

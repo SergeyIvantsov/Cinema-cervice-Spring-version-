@@ -9,44 +9,44 @@
 
         <insert tableName="directors">
             <column name="id_director" value="1"/>
-            <column name="directorName" value="Александр"/>
-            <column name="directorSurname" value="Серый"/>
+            <column name="director_name" value="Александр"/>
+            <column name="director_surname" value="Серый"/>
         </insert>
 
         <insert tableName="directors">
             <column name="id_director" value="2"/>
-            <column name="directorName" value="Ридли"/>
-            <column name="directorSurname" value="Скотт"/>
+            <column name="director_name" value="Ридли"/>
+            <column name="director_surname" value="Скотт"/>
         </insert>
 
         <insert tableName="directors">
             <column name="id_director" value="3"/>
-            <column name="directorName" value="Леонид"/>
-            <column name="directorSurname" value="Гайдай"/>
+            <column name="director_name" value="Леонид"/>
+            <column name="director_surname" value="Гайдай"/>
         </insert>
 
         <insert tableName="directors">
             <column name="id_director" value="4"/>
-            <column name="directorName" value="Джон"/>
-            <column name="directorSurname" value="Карпентер"/>
+            <column name="director_name" value="Джон"/>
+            <column name="director_surname" value="Карпентер"/>
         </insert>
 
         <insert tableName="directors">
             <column name="id_director" value="5"/>
-            <column name="directorName" value="Клод"/>
-            <column name="directorSurname" value="Зиди"/>
+            <column name="director_name" value="Клод"/>
+            <column name="director_surname" value="Зиди"/>
         </insert>
 
         <insert tableName="directors">
             <column name="id_director" value="6"/>
-            <column name="directorName" value="Ален"/>
-            <column name="directorSurname" value="Шаба"/>
+            <column name="director_name" value="Ален"/>
+            <column name="director_surname" value="Шаба"/>
         </insert>
 
         <insert tableName="directors">
             <column name="id_director" value="7"/>
-            <column name="directorName" value="Леонид"/>
-            <column name="directorSurname" value="Гайдай"/>
+            <column name="director_name" value="Леонид"/>
+            <column name="director_surname" value="Гайдай"/>
         </insert>
 
     </changeSet>

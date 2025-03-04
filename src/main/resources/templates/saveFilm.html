@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить фильм</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+
+<form th:action="@{/save}" th:object="${addFilm}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <label>
+        Fill film title:
+        <input type="text" th:field="*{title}">
+    </label>
+    <br/>
+    <label>
+        Fill film description:
+        <input type="text" th:field="*{description}">
+    </label>
+    <br/>
+    <label>
+        Fill film year:
+        <input type="number" th:field="*{year}">
+    </label>
+    <br/>
+    <label>
+        Fill film genre:
+        <input name="text" th:field="*{genre}" required>
+    </label>
+    <br/>
+    <label>
+        Select film director:
+        <select th:field="*{director}" required>
+            <option value="" selected>Select Director</option>
+            <option th:each="director : ${allDirectors}"
+                    th:value="${director.id}"
+                    th:text="${director.directorName} + ' ' + ${director.directorSurname}">
+            </option>
+        </select>
+    </label>
+    <button type="submit">Save</button>
+</form>
+
+
+<!--все поля: добавить город, ошибка доступны только для пользователя ADMIN-->
+<!--<div sec:authorize="hasAuthority('ADMIN')">-->
+
+<!--    <form th:action="@{/addCity}"-->
+<!--          th:object="${addCity}" method="POST">-->
+<!--        Name:-->
+<!--        <div th:if="${#fields.hasErrors('name')}">-->
+<!--            <span th:errors="*{name}" class="error"></span>-->
+<!--        </div>-->
+<!--        <input type="text" th:field="*{name}"/>-->
+<!--        </br>-->
+<!--        Location:-->
+<!--        <input type="text" th:field="*{location}"/>-->
+<!--        </br>-->
+<!--        <input type="submit" value="Добавить город"/>-->
+<!--    </form>-->
+<!--</div>-->
+
+<a th:href="@{/films}">Return to All Films</a>
+</body>
+
+</html>

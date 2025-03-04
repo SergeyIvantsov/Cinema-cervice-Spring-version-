@@ -27,10 +27,10 @@ public class Director implements Serializable {
     @Column (name = "id_director")
     private Long id;
 
-    @Column
+    @Column (name = "director_name")
     private String directorName;
 
-    @Column
+    @Column(name = "director_surname")
     private String directorSurname;
 
     @OneToMany (mappedBy = "director")
