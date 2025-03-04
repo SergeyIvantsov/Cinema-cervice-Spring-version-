@@ -18,8 +18,6 @@ public interface FilmService {
 
     List<FilmDto> findByName(String search);
 
-//    FilmDto update(Long id, FilmDto film);
-
     void delete(Long id);
 
     List<FilmDto> getFilmsByDirectorId(Long directorId);

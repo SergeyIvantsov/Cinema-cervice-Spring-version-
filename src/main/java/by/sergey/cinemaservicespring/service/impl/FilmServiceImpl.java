@@ -68,13 +68,6 @@ public class FilmServiceImpl implements FilmService {
                 .collect(Collectors.toList());
     }
 
-    //    @Override
-//    public FilmDto update(Long id, FilmDto filmDto) {
-//        Film film = ConverterUtil.convertFilm(filmDto);
-//        film.setId(id);
-//        filmDto.setId(filmRepository.update(id, film).getId());
-//        return filmDto;
-//    }
 
     @Override
     public FilmDto saveOrUpdate(FilmDto filmDto) {
