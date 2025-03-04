@@ -90,6 +90,7 @@ public class FilmServiceImpl implements FilmService {
         filmRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<FilmDto> getFilmsByDirectorId(Long directorId) {
         return filmRepository.findByDirectorId(directorId).stream()

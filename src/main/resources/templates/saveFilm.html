@@ -8,40 +8,51 @@
 </head>
 
 <body>
-
+<h3>Добавить фильм</h3>
 <form th:action="@{/save}" th:object="${addFilm}" method="post">
     <input type="hidden" th:field="*{id}">
+   <div>
     <label>
         Fill film title:
         <input type="text" th:field="*{title}">
     </label>
+   </div>
     <br/>
+
+    <div>
     <label>
         Fill film description:
         <input type="text" th:field="*{description}">
     </label>
+    </div>
     <br/>
+    <div>
     <label>
         Fill film year:
         <input type="number" th:field="*{year}">
     </label>
+    </div>
     <br/>
+    <div>
     <label>
         Fill film genre:
-        <input name="text" th:field="*{genre}" required>
+        <input name="text" th:field="*{genre}">
     </label>
+    </div>
     <br/>
+    <div>
     <label>
         Select film director:
         <select th:field="*{director}" required>
-            <option value="" selected>Select Director</option>
+            <option value="" selected>---Select Director---</option>
             <option th:each="director : ${allDirectors}"
                     th:value="${director.id}"
                     th:text="${director.directorName} + ' ' + ${director.directorSurname}">
             </option>
         </select>
     </label>
-    <button type="submit">Save</button>
+    </div>
+    <button type="submit">Добавить фильм</button>
 </form>
 
 
@@ -63,7 +74,7 @@
 <!--    </form>-->
 <!--</div>-->
 
-<a th:href="@{/films}">Return to All Films</a>
+<a th:href="@{/getFilms}">Return to All Films</a>
 </body>
 
 </html>
