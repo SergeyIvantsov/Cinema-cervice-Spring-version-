@@ -36,13 +36,22 @@
         <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
         </td>
 
+<!--        <td class="action-buttons">-->
+<!--            <form th:action="@{/updateFilm}" method="get">-->
+<!--                <input type="hidden" name="id" th:value="${film.id}"/>-->
+<!--                <button type="submit">Update</button>-->
+<!--            </form>-->
+<!--        </td>-->
         <td class="action-buttons">
             <form th:action="@{/updateFilm}" method="get">
-                <input type="hidden" name="id" th:value="${film.id}"/>
-                <button type="submit">Update</button>
+                <button type="submit" name="id" th:value="${film.id}">Редактировать</button>
             </form>
         </td>
-
+        <td class="action-buttons">
+            <form th:action="@{/delete}" method="post">
+                <button type="submit" name="id" th:value="${film.id}">Удалить</button>
+            </form>
+        </td>
 
     </tr>
 </table>

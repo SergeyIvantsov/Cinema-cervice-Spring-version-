@@ -37,28 +37,26 @@ public class FilmController {
         return "redirect:/getFilms";
     }
 
-
     @GetMapping("/updateFilm")
-    public String update(@RequestParam("id") Long id, Model model) {
+    public String showUpdateForm(@RequestParam("id") Long id, Model model) {
         FilmDto filmDto = filmService.get(id);
         model.addAttribute("filmDto", filmDto);
         model.addAttribute("allDirectors", directorService.getAll());
-        return "updateFilm"; // Возвращаем название страницы с обновленным фильмом
+        return "updateFilm";
     }
-
-//    @GetMapping("/updateFilm")
-//    public String update(Model model) {
-//        Long id =(Long) model.getAttribute("id");
-//        FilmDto filmDto = filmService.get(id);
-//        model.addAttribute("filmDto", filmDto);
-//        return "redirect:/update";
-//    }
 
     @PostMapping("/update")
     public String update(@ModelAttribute("filmDto") FilmDto filmDto) {
         filmService.saveOrUpdate(filmDto);
         return "redirect:/getFilms";
     }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
+        filmService.delete(id);
+        return "redirect:/getFilms";
+    }
+
 
 
 
