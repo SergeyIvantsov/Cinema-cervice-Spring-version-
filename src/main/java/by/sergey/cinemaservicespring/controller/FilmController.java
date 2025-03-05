@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +33,29 @@ public class FilmController {
 
     @PostMapping("/save")
     public String saveOrUpdate(@ModelAttribute("addFilm") FilmDto filmDto) {
+        filmService.saveOrUpdate(filmDto);
+        return "redirect:/getFilms";
+    }
+
+
+    @GetMapping("/updateFilm")
+    public String update(@RequestParam("id") Long id, Model model) {
+        FilmDto filmDto = filmService.get(id);
+        model.addAttribute("filmDto", filmDto);
+        model.addAttribute("allDirectors", directorService.getAll());
+        return "updateFilm"; // Возвращаем название страницы с обновленным фильмом
+    }
+
+//    @GetMapping("/updateFilm")
+//    public String update(Model model) {
+//        Long id =(Long) model.getAttribute("id");
+//        FilmDto filmDto = filmService.get(id);
+//        model.addAttribute("filmDto", filmDto);
+//        return "redirect:/update";
+//    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute("filmDto") FilmDto filmDto) {
         filmService.saveOrUpdate(filmDto);
         return "redirect:/getFilms";
     }

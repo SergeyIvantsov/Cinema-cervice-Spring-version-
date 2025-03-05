@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить фильм</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+<h3>Обновить фильм</h3>
+<form th:action="@{/update}" th:object="${filmDto}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <div>
+        <label>
+            Fill film title:
+            <input type="text" th:field="*{title}">
+        </label>
+    </div>
+    <br/>
+
+    <div>
+        <label>
+            Fill film description:
+            <input type="text" th:field="*{description}">
+        </label>
+    </div>
+    <br/>
+    <div>
+        <label>
+            Fill film year:
+            <input type="number" th:field="*{year}">
+        </label>
+    </div>
+    <br/>
+    <div>
+        <label>
+            Fill film genre:
+            <input name="text" th:field="*{genre}">
+        </label>
+    </div>
+    <br/>
+    <div>
+        <label>
+            Select film director:
+            <select th:field="*{director.id}" required>
+                <option value="" selected>---Select Director---</option>
+                <option th:each="director : ${allDirectors}"
+                        th:value="${director.id}"
+                        th:text="${director.directorName} + ' ' + ${director.directorSurname}">
+                </option>
+            </select>
+        </label>
+    </div>
+    <button type="submit">Обновить фильм</button>
+</form>
+
+
+<a th:href="@{/getFilms}">Return to All Films</a>
+</body>
+</html>

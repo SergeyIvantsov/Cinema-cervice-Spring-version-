@@ -24,7 +24,8 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public FilmDto get(Long id) {
-        return ConverterUtil.convertFilm(filmRepository.getReferenceById(id));
+        Film referenceById = filmRepository.getReferenceById(id);
+        return ConverterUtil.convertFilm(referenceById);
     }
 
     @Override

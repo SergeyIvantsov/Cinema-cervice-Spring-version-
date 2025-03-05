@@ -10,7 +10,7 @@
 
 <body>
 <br/>
-<a th:href="@{/createFilm}"><h3>Добавить фильм в общий список:</h3></a><br/>
+<a th:href="@{/createFilm}"><h3>Добавить новый фильм:</h3></a><br/>
 <br/>
 
 <h1>Список всех фильмов:</h1>
@@ -35,6 +35,15 @@
         <span th:utext="${film.getDirector().getDirectorName()}"></span>
         <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
         </td>
+
+        <td class="action-buttons">
+            <form th:action="@{/updateFilm}" method="get">
+                <input type="hidden" name="id" th:value="${film.id}"/>
+                <button type="submit">Update</button>
+            </form>
+        </td>
+
+
     </tr>
 </table>
 
