@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Фильмы режиссера</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+<h3>Фильмы режиссера</h3>
+<table>
+    <tr>
+        <th><B>Film id</B></th>
+        <th><B>Film title</B></th>
+        <th><B>Film description</B></th>
+        <th><B>Film year</B></th>
+        <th><B>Film genre</B></th>
+        <th><B>Film director</B></th>
+
+    </tr>
+    <tr th:each="film : ${filmsByDirector}">
+        <td th:utext="${film.id}">...</td>
+        <td th:utext="${film.title}">...</td>
+        <td th:utext="${film.description}">...</td>
+        <td th:utext="${film.year}">...</td>
+        <td th:utext="${film.genre}">...</td>
+        <td>
+            <span th:utext="${film.getDirector().getDirectorName()}"></span>
+            <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
+            </a>
+        </td>
+
+</body>
+<a th:href="@{/getFilms}">Return to All Films</a>
+
+</html>

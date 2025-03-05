@@ -13,8 +13,8 @@
 <a th:href="@{/createFilm}"><h3>Добавить новый фильм:</h3></a><br/>
 <br/>
 
-<h1>Список всех фильмов:</h1>
-</br>
+<h3>Список всех фильмов:</h3>
+
 <table>
     <tr>
         <th><B>Film id</B></th>
@@ -32,16 +32,13 @@
         <td th:utext="${film.year}">...</td>
         <td th:utext="${film.genre}">...</td>
         <td>
-        <span th:utext="${film.getDirector().getDirectorName()}"></span>
-        <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
+            <a th:href="@{/getFilmsByDirectorId/{directorId}(directorId=${film.getDirector().getId()})}">
+                <span th:utext="${film.getDirector().getDirectorName()}"></span>
+                <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
+            </a>
         </td>
 
-<!--        <td class="action-buttons">-->
-<!--            <form th:action="@{/updateFilm}" method="get">-->
-<!--                <input type="hidden" name="id" th:value="${film.id}"/>-->
-<!--                <button type="submit">Update</button>-->
-<!--            </form>-->
-<!--        </td>-->
+
         <td class="action-buttons">
             <form th:action="@{/updateFilm}" method="get">
                 <button type="submit" name="id" th:value="${film.id}">Редактировать</button>
@@ -56,23 +53,6 @@
     </tr>
 </table>
 
-<!--<div sec:authorize="hasAuthority('ADMIN')">-->
-
-<!--    <form th:action="@{/addCity}"-->
-<!--          th:object="${addCity}" method="POST">-->
-<!--        Name:-->
-<!--        <div th:if="${#fields.hasErrors('name')}">-->
-<!--            <span th:errors="*{name}" class="error"></span>-->
-<!--        </div>-->
-<!--        <input type="text" th:field="*{name}"/>-->
-<!--        </br>-->
-<!--        Location:-->
-<!--        <input type="text" th:field="*{location}"/>-->
-<!--        </br>-->
-<!--        <input type="submit" value="Добавить город"/>-->
-<!--    </form>-->
-<!--</div>-->
-
-
+<!--<img th:src="@{/images/movieWithPopcorn.png}"/>-->
 </body>
 </html>

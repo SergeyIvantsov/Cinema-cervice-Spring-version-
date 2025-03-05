@@ -6,10 +6,9 @@ import by.sergey.cinemaservicespring.service.FilmService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -57,6 +56,12 @@ public class FilmController {
         return "redirect:/getFilms";
     }
 
+    @GetMapping("/getFilmsByDirectorId/{directorId}")
+    public String getFilmsByDirector(@PathVariable("directorId") Long directorId, Model model) {
+        List<FilmDto> filmsByDirector = filmService.getFilmsByDirectorId(directorId);
+        model.addAttribute("filmsByDirector", filmsByDirector);
+        return "filmsByDirector";
+    }
 
 
 
