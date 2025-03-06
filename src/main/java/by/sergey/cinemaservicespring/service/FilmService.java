@@ -1,6 +1,7 @@
 package by.sergey.cinemaservicespring.service;
 
 import by.sergey.cinemaservicespring.dto.FilmDto;
+import by.sergey.cinemaservicespring.dto.FilmFilterDto;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface FilmService {
 //
 //    int getTotalFilmCount();
 
-    List<FilmDto> findByName(String search);
+    List<FilmDto> filtersFilms(String title, Integer year, String genre);
+
+//    List<FilmDto> filtersFilms(String title, Integer year, String genre);
 
     void delete(Long id);
 

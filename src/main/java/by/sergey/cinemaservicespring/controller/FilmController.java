@@ -1,6 +1,7 @@
 package by.sergey.cinemaservicespring.controller;
 
 import by.sergey.cinemaservicespring.dto.FilmDto;
+import by.sergey.cinemaservicespring.dto.FilmFilterDto;
 import by.sergey.cinemaservicespring.service.DirectorService;
 import by.sergey.cinemaservicespring.service.FilmService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,24 @@ public class FilmController {
     @GetMapping("/getFilms")
     public String getFilms(Model model) {
         model.addAttribute("allFilms", filmService.getAll());
+        return "films";
+    }
+    @GetMapping("/films")
+    public String showFilms(Model model) {
+        FilmFilterDto filmFilter = new FilmFilterDto();
+        model.addAttribute("filmsFilter", filmFilter);
+        return "films"; // Возвращаем имя шаблона
+    }
+
+    @GetMapping("/getFilterFilms")
+    public String getFilterFilms(@ModelAttribute("filmsFilter") FilmFilterDto filmFilterDto,
+                                 Model model){
+
+        List<FilmDto> filteredFilms = filmService.filtersFilms(filmFilterDto.getTitle(),
+                filmFilterDto.getYear(), filmFilterDto.getGenre());
+
+//        model.addAttribute("filmsFilter", filmFilterDto);
+        model.addAttribute("allFilms", filteredFilms);
         return "films";
     }
 
@@ -62,8 +81,6 @@ public class FilmController {
         model.addAttribute("filmsByDirector", filmsByDirector);
         return "filmsByDirector";
     }
-
-
 
 
 }
