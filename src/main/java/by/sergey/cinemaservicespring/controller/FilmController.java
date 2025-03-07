@@ -5,6 +5,9 @@ import by.sergey.cinemaservicespring.dto.FilmFilterDto;
 import by.sergey.cinemaservicespring.service.DirectorService;
 import by.sergey.cinemaservicespring.service.FilmService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +24,24 @@ public class FilmController {
 
     @GetMapping("/getFilms")
     public String getFilterFilms(@ModelAttribute("filmsFilter") FilmFilterDto filmFilterDto,
-                                 Model model){
+                                 @RequestParam(defaultValue = "0") int page,  // текущая страница
+                                 @RequestParam(defaultValue = "10") int size, // количество записей на странице
+                                 Model model) {
+        Pageable pageable = PageRequest.of(page, size);
+
+
         List<FilmDto> filteredFilms = filmService.filtersFilms(filmFilterDto.getTitle(),
+                filmFilterDto.getYear(), filmFilterDto.getGenre(), pageable);
+
+
+        long totalFilms = filmService.getTotalFilmCount(filmFilterDto.getTitle(),
                 filmFilterDto.getYear(), filmFilterDto.getGenre());
+        int totalPages = (int) Math.ceil((double) totalFilms / size);
 
         model.addAttribute("allFilms", filteredFilms);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("size", size);
         return "films";
     }
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.springframework.org/schema/security">
+      xmlns:sec="http://www.springframework.org/schema/security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Welcome to the Cinema Service!</title>
@@ -28,14 +28,14 @@
 <!--</form>-->
 
 <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
-    <label for="title">Title:</label>
-    <input type="text" id="title" th:field="*{title}" placeholder="Enter film title" />
+    <label for="title">Название:</label>
+    <input type="text" id="title" th:field="*{title}" placeholder="Введите название фильма" />
 
-    <label for="year">Year:</label>
-    <input type="number" id="year" th:field="*{year}" placeholder="Enter film year" />
+    <label for="year">Год выпуска:</label>
+    <input type="number" id="year" th:field="*{year}" placeholder="Введите год выпуска" />
 
-    <label for="genre">Genre:</label>
-    <input type="text" id="genre" th:field="*{genre}" placeholder="Enter film genre" />
+    <label for="genre">Жанр:</label>
+    <input type="text" id="genre" th:field="*{genre}" placeholder="Введите жанр" />
 
     <button type="submit">Найти</button>
 </form>
@@ -80,7 +80,19 @@
 
     </tr>
 </table>
+</br>
 
+<form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
+<label for="pageSize">Количество на странице:</label>
+<input type="number" id="pageSize" name="size" value="10" min="1" />
+<button type="submit">Установить</button>
+</form>
+
+<div class="pagination">
+    <a th:if="${currentPage > 0}" th:href="@{/getFilms(page=${currentPage - 1}, size=${size})}">&laquo; Пред.</a>
+    <span th:text="'Страница ' + ${currentPage + 1} + ' из ' + ${totalPages}"></span>
+    <a th:if="${currentPage < totalPages - 1}" th:href="@{/getFilms(page=${currentPage + 1}, size=${size})}">След. &raquo;</a>
+</div>
 <!--<img th:src="@{/images/movieWithPopcorn.png}"/>-->
 </body>
 </html>

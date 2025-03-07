@@ -1,7 +1,6 @@
 package by.sergey.cinemaservicespring.service.impl;
 
 import by.sergey.cinemaservicespring.dto.FilmDto;
-import by.sergey.cinemaservicespring.dto.FilmFilterDto;
 import by.sergey.cinemaservicespring.entity.Director;
 import by.sergey.cinemaservicespring.entity.Film;
 import by.sergey.cinemaservicespring.repository.DirectorRepository;
@@ -10,6 +9,7 @@ import by.sergey.cinemaservicespring.service.FilmService;
 import by.sergey.cinemaservicespring.utils.converter.ConverterUtil;
 import by.sergey.cinemaservicespring.utils.filtrs.FilmSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +37,7 @@ public class FilmServiceImpl implements FilmService {
                 .map(ConverterUtil::convertFilm)
                 .collect(Collectors.toList());
     }
+
 
 //    @Override
 //    public List<FilmDto> filtersFilms(FilmFilterDto filmFilterDto) {
@@ -66,7 +67,7 @@ public class FilmServiceImpl implements FilmService {
 
 
     @Override
-    public List<FilmDto> filtersFilms(String title, Integer year, String genre) {
+    public List<FilmDto> filtersFilms(String title, Integer year, String genre, Pageable pageable) {
         Specification<Film> spec = Specification.where(
                 (title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null
         ).or(
@@ -74,11 +75,22 @@ public class FilmServiceImpl implements FilmService {
         ).or(
                 (genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null
         );
-        List<Film> films = filmRepository.findAll(spec);
-
+        List<Film> films = filmRepository.findAll(spec, pageable).getContent();
         return films.stream()
                 .map(ConverterUtil::convertFilm)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public long getTotalFilmCount(String title, Integer year, String genre) {
+        Specification<Film> spec = Specification.where(
+                (title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null
+        ).or(
+                (year != null) ? FilmSpecification.hasYear(year) : null
+        ).or(
+                (genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null
+        );
+        return filmRepository.count(spec); // Подсчитываем количество фильмов, удовлетворяющих фильтрам
     }
 
 
