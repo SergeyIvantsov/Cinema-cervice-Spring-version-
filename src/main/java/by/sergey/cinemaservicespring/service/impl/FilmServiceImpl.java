@@ -69,9 +69,9 @@ public class FilmServiceImpl implements FilmService {
     public List<FilmDto> filtersFilms(String title, Integer year, String genre) {
         Specification<Film> spec = Specification.where(
                 (title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null
-        ).and(
+        ).or(
                 (year != null) ? FilmSpecification.hasYear(year) : null
-        ).and(
+        ).or(
                 (genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null
         );
         List<Film> films = filmRepository.findAll(spec);

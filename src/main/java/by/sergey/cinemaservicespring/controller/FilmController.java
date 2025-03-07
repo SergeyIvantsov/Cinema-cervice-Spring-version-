@@ -18,26 +18,13 @@ public class FilmController {
     private final FilmService filmService;
     private final DirectorService directorService;
 
-    @GetMapping("/getFilms")
-    public String getFilms(Model model) {
-        model.addAttribute("allFilms", filmService.getAll());
-        return "films";
-    }
-    @GetMapping("/films")
-    public String showFilms(Model model) {
-        FilmFilterDto filmFilter = new FilmFilterDto();
-        model.addAttribute("filmsFilter", filmFilter);
-        return "films"; // Возвращаем имя шаблона
-    }
 
-    @GetMapping("/getFilterFilms")
+    @GetMapping("/getFilms")
     public String getFilterFilms(@ModelAttribute("filmsFilter") FilmFilterDto filmFilterDto,
                                  Model model){
-
         List<FilmDto> filteredFilms = filmService.filtersFilms(filmFilterDto.getTitle(),
                 filmFilterDto.getYear(), filmFilterDto.getGenre());
 
-//        model.addAttribute("filmsFilter", filmFilterDto);
         model.addAttribute("allFilms", filteredFilms);
         return "films";
     }
