@@ -16,26 +16,19 @@
 
 
 <h3>Поиск</h3>
-<!--<form th:action="@{/getFilterFilms}" th:object="${filmsFilter}" method="get">-->
-<!--    <input type="hidden" th:field="*{title}">-->
-<!--    <input type="hidden" th:field="*{year}">-->
-<!--    <input type="hidden" th:field="*{genre}">-->
-<!--&lt;!&ndash;    <label>&ndash;&gt;-->
-<!--&lt;!&ndash;        Enter page size&ndash;&gt;-->
-<!--&lt;!&ndash;        <input type="text" th:field="*{pageSize}">&ndash;&gt;-->
-<!--&lt;!&ndash;    </label>&ndash;&gt;-->
-<!--    <button type="submit">Submit</button>-->
-<!--</form>-->
 
 <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
     <label for="title">Название:</label>
-    <input type="text" id="title" th:field="*{title}" placeholder="Введите название фильма" />
+    <input type="text" id="title" th:field="*{title}" placeholder="Введите название фильма" /><br/>
 
-    <label for="year">Год выпуска:</label>
-    <input type="number" id="year" th:field="*{year}" placeholder="Введите год выпуска" />
+    <label for="yearFrom">Год выпуска (с):</label>
+    <input type="number" id="yearFrom" th:field="*{yearFrom}" placeholder="Введите минимальный год" />
+
+    <label for="yearTo">Год выпуска (по):</label>
+    <input type="number" id="yearTo" th:field="*{yearTo}" placeholder="Введите максимальный год" /><br/>
 
     <label for="genre">Жанр:</label>
-    <input type="text" id="genre" th:field="*{genre}" placeholder="Введите жанр" />
+    <input type="text" id="genre" th:field="*{genre}" placeholder="Введите жанр" /><br/>
 
     <button type="submit">Найти</button>
 </form>
@@ -45,18 +38,28 @@
 <h3>Список всех фильмов:</h3>
 <table>
     <tr>
-        <th><B>Film id</B></th>
-        <th><B>Film title</B></th>
-        <th><B>Film description</B></th>
-        <th><B>Film year</B></th>
-        <th><B>Film genre</B></th>
-        <th><B>Film director</B></th>
+        <th><B>Фильм id</B></th>
+        <th><B>Название</B></th>
+        <th><B>Описание фильма</B></th>
+        <th><B>Актеры</B></th>
+        <th><B>Год выпуска</B></th>
+        <th><B>Жанр</B></th>
+        <th><B>Режиссер</B></th>
 
     </tr>
     <tr th:each="film : ${allFilms}">
         <td th:utext="${film.id}">...</td>
         <td th:utext="${film.title}">...</td>
         <td th:utext="${film.description}">...</td>
+        <td>
+            <ul>
+                <li th:each="actor : ${film.actorsDto}">
+                    <span th:text="${actor.actorName}">Actor Name</span>
+                    <span th:text="${actor.actorSurname}">Actor Surname</span>
+                </li>
+            </ul>
+        </td>
+
         <td th:utext="${film.year}">...</td>
         <td th:utext="${film.genre}">...</td>
         <td>
@@ -75,6 +78,16 @@
         <td class="action-buttons">
             <form th:action="@{/delete}" method="post">
                 <button type="submit" name="id" th:value="${film.id}">Удалить</button>
+            </form>
+        </td>
+        <td class="action-buttons">
+            <form th:action="@{/addWishes}" method="post">
+                <button type="submit" name="idFilm" th:value="${film.id}">Добавить в желаемые</button>
+            </form>
+        </td>
+        <td class="action-buttons">
+            <form th:action="@{/addWatches}" method="post">
+                <button type="submit" name="id" th:value="${film.id}">Добавить в просмотренные</button>
             </form>
         </td>
 

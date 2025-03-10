@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+
+<body>
+<h1>Меню</h1>
+<br/>
+<a th:href="@{/getFilms}"><h2>К списку всех фильмов</h2></a>
+<a th:href="@{/getAccount}"><h2>Мой аккаунт</h2></a><br/>
+
+</body>
+</html>

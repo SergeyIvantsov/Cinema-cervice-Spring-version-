@@ -19,4 +19,21 @@ public class FilmSpecification {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.like(criteriaBuilder.lower(root.get("genre")), "%" + genre.toLowerCase() + "%");
     }
+
+    public static Specification<Film> hasYearGreaterThanOrEqualTo(Integer yearFrom) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.greaterThanOrEqualTo(root.get("year"), yearFrom);
+    }
+
+    public static Specification<Film> hasYearLessThanOrEqualTo(Integer yearTo) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.lessThanOrEqualTo(root.get("year"), yearTo);
+    }
+
+    public static Specification<Film> hasYearBetween(Integer yearFrom, Integer yearTo) {
+        return (root, query, criteriaBuilder) ->
+                criteriaBuilder.between(root.get("year"), yearFrom, yearTo);
+    }
+
+
 }

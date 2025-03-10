@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Cinema Service!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+
+<body>
+<br/>
+<a th:href="@{/menu}"><h3>Назад в меню</h3></a><br/>
+<br/>
+<title>Аккаунт</title>
+
+<div>
+    <p>User Id: <span th:text="${user.id}"></span></p>
+    <p>UserName: <span th:text="${user.userName}"></span></p>
+</div>
+<h2>--------------------</h2>
+
+
+
+
+<h3>Список желаемых к просмотру фильмов:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Film ID</th>
+        <th>Film title</th>
+        <th>Film description</th>
+        <th>Film year</th>
+        <th>Film genre</th>
+        <th>Film director</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="film : ${films}">
+        <td th:text="${film.id}"></td>
+        <td th:text="${film.title}"></td>
+        <td th:text="${film.description}"></td>
+        <td th:text="${film.year}"></td>
+        <td th:text="${film.genre}"></td>
+        <td>
+            <span th:text="${film.director.directorName}"></span>
+            <span th:text="${film.director.directorSurname}"></span>
+        </td>
+        <td>
+            <form th:action="@{delete_film_from_account}" method="post">
+                <button type="submit" name="id" th:value="${film.id}">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</br>
+
+<!--<form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">-->
+<!--    <label for="pageSize">Количество на странице:</label>-->
+<!--    <input type="number" id="pageSize" name="size" value="10" min="1" />-->
+<!--    <button type="submit">Установить</button>-->
+<!--</form>-->
+
+<!--<div class="pagination">-->
+<!--    <a th:if="${currentPage > 0}" th:href="@{/getFilms(page=${currentPage - 1}, size=${size})}">&laquo; Пред.</a>-->
+<!--    <span th:text="'Страница ' + ${currentPage + 1} + ' из ' + ${totalPages}"></span>-->
+<!--    <a th:if="${currentPage < totalPages - 1}" th:href="@{/getFilms(page=${currentPage + 1}, size=${size})}">След. &raquo;</a>-->
+<!--</div>-->
+<!--<img th:src="@{/images/movieWithPopcorn.png}"/>-->
+</body>
+</html>

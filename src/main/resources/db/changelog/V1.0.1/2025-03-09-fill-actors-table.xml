@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <changeSet id="fill_actors" author="sergey">
+
+        <insert tableName="actors">
+            <column name="id" value="1"/>
+            <column name="actor_name" value="Евгений"/>
+            <column name="actor_surname" value="Леонов"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="2"/>
+            <column name="actor_name" value="Георгий"/>
+            <column name="actor_surname" value="Вицин"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="3"/>
+            <column name="actor_name" value="Савелий"/>
+            <column name="actor_surname" value="Крамаров"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="4"/>
+            <column name="actor_name" value="Раднэр"/>
+            <column name="actor_surname" value="Муратов"/>
+        </insert>
+
+
+        <insert tableName="actors">
+            <column name="id" value="5"/>
+            <column name="actor_name" value="Рассел"/>
+            <column name="actor_surname" value="Кроу"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="6"/>
+            <column name="actor_name" value="Хоакин"/>
+            <column name="actor_surname" value="Феникс"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="7"/>
+            <column name="actor_name" value="Конни"/>
+            <column name="actor_surname" value="Нильсен"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="8"/>
+            <column name="actor_name" value="Джимон"/>
+            <column name="actor_surname" value="Хонсу"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="9"/>
+            <column name="actor_name" value="Оливер"/>
+            <column name="actor_surname" value="Рид"/>
+        </insert>
+
+
+
+        <insert tableName="actors">
+            <column name="id" value="10"/>
+            <column name="actor_name" value="Юрий"/>
+            <column name="actor_surname" value="Яковлев"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="11"/>
+            <column name="actor_name" value="Леонид"/>
+            <column name="actor_surname" value="Куравлев"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="12"/>
+            <column name="actor_name" value="Александр"/>
+            <column name="actor_surname" value="Демьяненко"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="13"/>
+            <column name="actor_name" value="Наталья"/>
+            <column name="actor_surname" value="Селезнева"/>
+        </insert>
+
+
+
+        <insert tableName="actors">
+            <column name="id" value="14"/>
+            <column name="actor_name" value="Курт"/>
+            <column name="actor_surname" value="Рассел"/>
+        </insert>
+
+        <insert tableName="actors">
+            <column name="id" value="15"/>
+            <column name="actor_name" value="Кит"/>
+            <column name="actor_surname" value="Дэвис"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="16"/>
+            <column name="actor_name" value="Уилфорд"/>
+            <column name="actor_surname" value="Бримли"/>
+        </insert>
+
+
+        <insert tableName="actors">
+            <column name="id" value="17"/>
+            <column name="actor_name" value="Кристиан"/>
+            <column name="actor_surname" value="Клавье"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="18"/>
+            <column name="actor_name" value="Жерар"/>
+            <column name="actor_surname" value="Депардье"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="19"/>
+            <column name="actor_name" value="Готфрид"/>
+            <column name="actor_surname" value="Йон"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="20"/>
+            <column name="actor_name" value="Мишель"/>
+            <column name="actor_surname" value="Галабрю"/>
+        </insert>
+
+        <insert tableName="actors">
+            <column name="id" value="21"/>
+            <column name="actor_name" value="Жамель"/>
+            <column name="actor_surname" value="Деббуз"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="22"/>
+            <column name="actor_name" value="Ален"/>
+            <column name="actor_surname" value="Шаба"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="23"/>
+            <column name="actor_name" value="Моника"/>
+            <column name="actor_surname" value="Белуччи"/>
+        </insert>
+
+
+        <insert tableName="actors">
+            <column name="id" value="24"/>
+            <column name="actor_name" value="Юрий"/>
+            <column name="actor_surname" value="Никулин"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="25"/>
+            <column name="actor_name" value="Нина"/>
+            <column name="actor_surname" value="Гребешкова"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="26"/>
+            <column name="actor_name" value="Анатолий"/>
+            <column name="actor_surname" value="Папанов"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="27"/>
+            <column name="actor_name" value="Андрей"/>
+            <column name="actor_surname" value="Миронов"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="28"/>
+            <column name="actor_name" value="Моника"/>
+            <column name="actor_surname" value="Белуччи"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="29"/>
+            <column name="actor_name" value="Нонна"/>
+            <column name="actor_surname" value="Мордюкова"/>
+        </insert>
+        <insert tableName="actors">
+            <column name="id" value="30"/>
+            <column name="actor_name" value="Светлана"/>
+            <column name="actor_surname" value="Светличная"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

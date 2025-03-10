@@ -14,6 +14,7 @@
         <th><B>Film id</B></th>
         <th><B>Film title</B></th>
         <th><B>Film description</B></th>
+        <th><B>Film actors</B></th>
         <th><B>Film year</B></th>
         <th><B>Film genre</B></th>
         <th><B>Film director</B></th>
@@ -23,6 +24,14 @@
         <td th:utext="${film.id}">...</td>
         <td th:utext="${film.title}">...</td>
         <td th:utext="${film.description}">...</td>
+        <td>
+            <ul>
+                <li th:each="actor : ${film.actorsDto}">
+                    <span th:text="${actor.actorName}">Actor Name</span>
+                    <span th:text="${actor.actorSurname}">Actor Surname</span>
+                </li>
+            </ul>
+        </td>
         <td th:utext="${film.year}">...</td>
         <td th:utext="${film.genre}">...</td>
         <td>

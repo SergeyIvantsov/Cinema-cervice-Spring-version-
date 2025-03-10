@@ -1,8 +1,11 @@
 package by.sergey.cinemaservicespring.service.impl;
 
+import by.sergey.cinemaservicespring.dto.ActorDto;
 import by.sergey.cinemaservicespring.dto.FilmDto;
+import by.sergey.cinemaservicespring.entity.Actor;
 import by.sergey.cinemaservicespring.entity.Director;
 import by.sergey.cinemaservicespring.entity.Film;
+import by.sergey.cinemaservicespring.repository.ActorRepository;
 import by.sergey.cinemaservicespring.repository.DirectorRepository;
 import by.sergey.cinemaservicespring.repository.FilmRepository;
 import by.sergey.cinemaservicespring.service.FilmService;
@@ -14,7 +17,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +29,7 @@ public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
     private final DirectorRepository directorRepository;
+    private final ActorRepository actorRepository;
 
     @Override
     public FilmDto get(Long id) {
@@ -39,42 +45,24 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-//    @Override
-//    public List<FilmDto> filtersFilms(FilmFilterDto filmFilterDto) {
-//        List<Film> films;
-//        if (filmFilterDto.getTitle() != null || filmFilterDto.getYear() != null || filmFilterDto.getGenre() != null) {
-//            films = filmRepository.findByTitleOrYearOrGenreContaining(filmFilterDto.getTitle(),
-//                    filmFilterDto.getYear(), filmFilterDto.getGenre());
-//        } else {
-//            films = filmRepository.findAll();
-//        }
-//        return films.stream().map(ConverterUtil::convertFilm).collect(Collectors.toList());
-//    }
-
-//    @Override
-//    public List<FilmDto> getFilmsForPage(int page, int pageSize) {
-//        int offset = (page - 1) * pageSize;
-//        List<Film> films = filmRepository.getFilmsPage(offset, pageSize);
-//        return films.stream()
-//                .map(ConverterUtil::convertFilm)
-//                .collect(Collectors.toList());
-//    }
-//
-//    @Override
-//    public int getTotalFilmCount() {
-//        return filmRepository.getAll().size();
-//    }
-
-
     @Override
-    public List<FilmDto> filtersFilms(String title, Integer year, String genre, Pageable pageable) {
+    public List<FilmDto> filtersFilms(String title, Integer year, String genre, Integer yearFrom, Integer yearTo, Pageable pageable) {
         Specification<Film> spec = Specification.where(
                 (title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null
         ).or(
-                (year != null) ? FilmSpecification.hasYear(year) : null
-        ).or(
                 (genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null
         );
+        if (year != null) {
+            spec = spec.and(FilmSpecification.hasYear(year));
+        }
+        if (yearFrom != null && yearTo != null) {
+            spec = spec.and(FilmSpecification.hasYearBetween(yearFrom, yearTo));
+        } else if (yearFrom != null) {
+            spec = spec.and(FilmSpecification.hasYearGreaterThanOrEqualTo(yearFrom));
+        } else if (yearTo != null) {
+            spec = spec.and(FilmSpecification.hasYearLessThanOrEqualTo(yearTo));
+        }
+
         List<Film> films = filmRepository.findAll(spec, pageable).getContent();
         return films.stream()
                 .map(ConverterUtil::convertFilm)
@@ -82,15 +70,23 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public long getTotalFilmCount(String title, Integer year, String genre) {
+    public long getTotalFilmCount(String title, Integer year, String genre, Integer yearFrom, Integer yearTo) {
         Specification<Film> spec = Specification.where(
                 (title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null
         ).or(
-                (year != null) ? FilmSpecification.hasYear(year) : null
-        ).or(
                 (genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null
         );
-        return filmRepository.count(spec); // Подсчитываем количество фильмов, удовлетворяющих фильтрам
+        if (year != null) {
+            spec = spec.and(FilmSpecification.hasYear(year));
+        }
+        if (yearFrom != null && yearTo != null) {
+            spec = spec.and(FilmSpecification.hasYearBetween(yearFrom, yearTo));
+        } else if (yearFrom != null) {
+            spec = spec.and(FilmSpecification.hasYearGreaterThanOrEqualTo(yearFrom));
+        } else if (yearTo != null) {
+            spec = spec.and(FilmSpecification.hasYearLessThanOrEqualTo(yearTo));
+        }
+        return filmRepository.count(spec);
     }
 
 
@@ -99,6 +95,14 @@ public class FilmServiceImpl implements FilmService {
         Director referenceById = directorRepository.getReferenceById(filmDto.getDirector().getId());
         Film film = ConverterUtil.convertFilm(filmDto);
         film.setDirector(referenceById);
+        Set<Actor> actors = new HashSet<>();
+        for (ActorDto actorDto : filmDto.getActorsDto()) {
+            Actor actor = actorRepository.getReferenceById(actorDto.getId()); // Загрузка Actor по ID
+            actors.add(actor);
+        }
+        film.setActors(actors);
+
+
         Film save = filmRepository.save(film);
         if (film != null) {
             return ConverterUtil.convertFilm(save);

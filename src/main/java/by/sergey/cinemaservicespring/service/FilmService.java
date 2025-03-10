@@ -17,16 +17,12 @@ public interface FilmService {
 //
 //    int getTotalFilmCount();
 
-//старый
-//    List<FilmDto> filtersFilms(String title, Integer year, String genre);
-
-//    List<FilmDto> filtersFilms(String title, Integer year, String genre);
 
     void delete(Long id);
 
     List<FilmDto> getFilmsByDirectorId(Long directorId);
 
-    List<FilmDto> filtersFilms(String title, Integer year, String genre, Pageable pageable);
+    List<FilmDto> filtersFilms(String title, Integer year, String genre, Integer yearFrom, Integer yearTo, Pageable pageable);
 
-    long getTotalFilmCount(String title, Integer year, String genre);
+    long getTotalFilmCount(String title, Integer year, String genre, Integer yearFrom, Integer yearTo);
 }

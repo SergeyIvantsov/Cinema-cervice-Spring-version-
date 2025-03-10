@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 public class FilmFilterDto {
     private String title;
     private Integer year;
+    private Integer yearFrom;
+    private Integer yearTo;
     private String genre;
 
 }

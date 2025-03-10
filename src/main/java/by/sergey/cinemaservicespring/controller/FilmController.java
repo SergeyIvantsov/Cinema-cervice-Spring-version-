@@ -1,7 +1,9 @@
 package by.sergey.cinemaservicespring.controller;
 
+import by.sergey.cinemaservicespring.dto.ActorDto;
 import by.sergey.cinemaservicespring.dto.FilmDto;
 import by.sergey.cinemaservicespring.dto.FilmFilterDto;
+import by.sergey.cinemaservicespring.service.ActorService;
 import by.sergey.cinemaservicespring.service.DirectorService;
 import by.sergey.cinemaservicespring.service.FilmService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class FilmController {
 
     private final FilmService filmService;
     private final DirectorService directorService;
+    private final ActorService actorService;
 
 
     @GetMapping("/getFilms")
@@ -31,11 +34,13 @@ public class FilmController {
 
 
         List<FilmDto> filteredFilms = filmService.filtersFilms(filmFilterDto.getTitle(),
-                filmFilterDto.getYear(), filmFilterDto.getGenre(), pageable);
+                filmFilterDto.getYear(), filmFilterDto.getGenre(), filmFilterDto.getYearFrom(),
+                filmFilterDto.getYearTo(), pageable);
 
 
         long totalFilms = filmService.getTotalFilmCount(filmFilterDto.getTitle(),
-                filmFilterDto.getYear(), filmFilterDto.getGenre());
+                filmFilterDto.getYear(), filmFilterDto.getGenre(), filmFilterDto.getYearFrom(),
+                filmFilterDto.getYearTo());
         int totalPages = (int) Math.ceil((double) totalFilms / size);
 
         model.addAttribute("allFilms", filteredFilms);
@@ -48,12 +53,17 @@ public class FilmController {
     @GetMapping("/createFilm")
     public String createFilm(Model model) {
         model.addAttribute("addFilm", new FilmDto());
+        model.addAttribute("allActors", actorService.findAll());
         model.addAttribute("allDirectors", directorService.getAll());
         return "createFilm";
     }
 
     @PostMapping("/save")
     public String saveOrUpdate(@ModelAttribute("addFilm") FilmDto filmDto) {
+        System.out.println("Полученный FilmDto: " + filmDto);
+        for (ActorDto actorDto : filmDto.getActorsDto()) {
+            System.out.println("Актер: " + actorDto);
+        }
         filmService.saveOrUpdate(filmDto);
         return "redirect:/getFilms";
     }
@@ -84,6 +94,9 @@ public class FilmController {
         model.addAttribute("filmsByDirector", filmsByDirector);
         return "filmsByDirector";
     }
+
+
+
 
 
 }
