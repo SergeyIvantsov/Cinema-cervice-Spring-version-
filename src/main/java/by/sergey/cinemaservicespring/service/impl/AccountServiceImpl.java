@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,9 +22,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void addFilmToDesireList(Long accountId, Long filmId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
-                .orElseThrow(() -> new IllegalArgumentException("Film not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
+        if (account.getWatchedFilms().contains(film)) {
+            throw new IllegalArgumentException("Вы уже посмотрели этот фильм. Он не может быть добавлен в список желаемых.");
+        }
         account.getDesiredFilms().add(film);
         accountRepository.save(account);
     }
@@ -31,28 +35,29 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void addFilmToWatchedList(Long accountId, Long filmId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
-                .orElseThrow(() -> new IllegalArgumentException("Film not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
+        if (account.getDesiredFilms().contains(film)) {
+            account.getDesiredFilms().remove(film);
+        }
         account.getWatchedFilms().add(film);
         accountRepository.save(account);
     }
 
     @Override
     public Account getAccountById(Long accountId) {
-        Optional<Account> account = accountRepository.findById(accountId);
-        if (account.isPresent()) {
-            return account.get();
-        }else
-            return null; //toDo нельзя возвращать null
+        return accountRepository.findById(accountId)
+                .orElseThrow(() -> new NoSuchElementException("Аккаунт с таким ID " + accountId + " не найден"));
     }
+
 
     @Override
     public void deleteFilmFromDesireList(Long accountId, Long filmId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
-                .orElseThrow(() -> new IllegalArgumentException("Film not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
         account.getDesiredFilms().remove(film);
         accountRepository.save(account);
     }
@@ -60,9 +65,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void deleteFilmFromWatchedList(Long accountId, Long filmId) {
         Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
-                .orElseThrow(() -> new IllegalArgumentException("Film not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
         account.getWatchedFilms().remove(film);
         accountRepository.save(account);
     }

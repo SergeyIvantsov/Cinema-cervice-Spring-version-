@@ -13,10 +13,8 @@
 <br/>
 <a th:href="@{/createFilm}"><h3>Добавить новый фильм:</h3></a><br/>
 <br/>
-
+<div th:if="${errorDesired != null}" class="alert alert-danger" th:text="${errorDesired}"></div>
 <div th:if="${messageDesired != null}" class="alert alert-success" th:text="${messageDesired}"></div>
-
-<!-- Сообщение для просмотренных фильмов -->
 <div th:if="${messageWatched != null}" class="alert alert-success" th:text="${messageWatched}"></div>
 
 <h3>Поиск</h3>
