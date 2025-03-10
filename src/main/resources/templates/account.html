@@ -47,8 +47,8 @@
             <span th:text="${film.director.directorSurname}"></span>
         </td>
         <td>
-            <form th:action="@{delete_film_from_account}" method="post">
-                <button type="submit" name="id" th:value="${film.id}">Delete</button>
+            <form th:action="@{delete_desired_film}" method="post">
+                <button type="submit" name="idDesire" th:value="${film.id}">Delete</button>
             </form>
         </td>
     </tr>
@@ -56,6 +56,40 @@
 </table>
 </br>
 
+
+<h3>Список просмотренных фильмов:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Film ID</th>
+        <th>Film title</th>
+        <th>Film description</th>
+        <th>Film year</th>
+        <th>Film genre</th>
+        <th>Film director</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="film : ${watchedFilms}">
+        <td th:text="${film.id}"></td>
+        <td th:text="${film.title}"></td>
+        <td th:text="${film.description}"></td>
+        <td th:text="${film.year}"></td>
+        <td th:text="${film.genre}"></td>
+        <td>
+            <span th:text="${film.director.directorName}"></span>
+            <span th:text="${film.director.directorSurname}"></span>
+        </td>
+        <td>
+            <form th:action="@{delete_watched_film}" method="post">
+                <button type="submit" name="idWatched" th:value="${film.id}">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</br>
 <!--<form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">-->
 <!--    <label for="pageSize">Количество на странице:</label>-->
 <!--    <input type="number" id="pageSize" name="size" value="10" min="1" />-->
