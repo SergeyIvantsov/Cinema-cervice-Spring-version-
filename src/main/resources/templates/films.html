@@ -6,117 +6,310 @@
     <meta charset="UTF-8">
     <title>Welcome to the Cinema Service!</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .menu h3 {
+            margin: 0;
+        }
+
+        .filter-form {
+            width: 25%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+        }
+
+        .filter-form input,
+        .filter-form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .filter-form button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .filter-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .logout-button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        .table-container {
+            margin-top: 20px;
+            width: 85%;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        table td:nth-child(3) {
+            width: 30%; /* Увеличиваем ширину колонки с описанием */
+        }
+
+        .action-buttons form {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .action-buttons button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+
+        /* Кнопки редактировать и удалить */
+        .action-buttons .edit-button,
+        .action-buttons .delete-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .action-buttons .edit-button:hover,
+        .action-buttons .delete-button:hover {
+            background-color: #0056b3;
+        }
+
+        .action-buttons .delete-button {
+            background-color: #dc3545;
+        }
+
+        .action-buttons .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Кнопки добавить в желаемые и просмотренные */
+        .action-buttons .wish-button,
+        .action-buttons .watch-button {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .action-buttons .wish-button:hover,
+        .action-buttons .watch-button:hover {
+            background-color: #218838;
+        }
+
+        /* Кнопка добавить новый фильм */
+        .add-film-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .add-film-button:hover {
+            background-color: #0056b3;
+        }
+
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination a {
+            color: #007bff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .pagination a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
 </head>
-
-
 <body>
-<form method="post" th:action="@{/logout}">
-    <button type="submit">LOGOUT</button>
-</form>
-<a th:href="@{/menu}"><h3>Меню</h3></a>
-<br/>
 
-</td >
-    <a sec:authorize="hasAuthority('ADMIN')"
-       th:href="@{/createFilm}"><h3>Добавить новый фильм:</h3></a><br/>
-<br/>
-<div th:if="${errorDesired != null}" class="alert alert-danger" th:text="${errorDesired}"></div>
-<div th:if="${messageDesired != null}" class="alert alert-success" th:text="${messageDesired}"></div>
-<div th:if="${messageWatched != null}" class="alert alert-success" th:text="${messageWatched}"></div>
-
-<h3>Поиск</h3>
-
-<form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
-    <label for="title">Название:</label>
-    <input type="text" id="title" th:field="*{title}" placeholder="Введите название фильма"/><br/>
-
-    <label for="yearFrom">Год выпуска (с):</label>
-    <input type="number" id="yearFrom" th:field="*{yearFrom}" placeholder="Введите минимальный год"/>
-
-    <label for="yearTo">Год выпуска (по):</label>
-    <input type="number" id="yearTo" th:field="*{yearTo}" placeholder="Введите максимальный год"/><br/>
-
-    <label for="genre">Жанр:</label>
-    <input type="text" id="genre" th:field="*{genre}" placeholder="Введите жанр"/><br/>
-
-    <button type="submit">Найти</button>
-</form>
-
-
-<h2>--------------------</h2>
-<h3>Список всех фильмов:</h3>
-<table>
-    <tr>
-        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
-        <th><B>Название</B></th>
-        <th><B>Описание фильма</B></th>
-        <th><B>Актеры</B></th>
-        <th><B>Год выпуска</B></th>
-        <th><B>Жанр</B></th>
-        <th><B>Режиссер</B></th>
-
-    </tr>
-    <tr th:each="film : ${allFilms}">
-        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}">...</td>
-        <td th:utext="${film.title}">...</td>
-        <td th:utext="${film.description}">...</td>
-        <td>
-            <ul>
-                <li th:each="actor : ${film.actorsDto}">
-                    <span th:text="${actor.actorName}">Actor Name</span>
-                    <span th:text="${actor.actorSurname}">Actor Surname</span>
-                </li>
-            </ul>
-        </td>
-
-        <td th:utext="${film.year}">...</td>
-        <td th:utext="${film.genre}">...</td>
-        <td>
-            <a th:href="@{/getFilmsByDirectorId/{directorId}(directorId=${film.getDirector().getId()})}">
-                <span th:utext="${film.getDirector().getDirectorName()}"></span>
-                <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
-            </a>
-        </td>
-
-
-        <td sec:authorize="hasAuthority('ADMIN')" class="action-buttons">
-            <form th:action="@{/updateFilm}" method="get">
-                <button type="submit" name="id" th:value="${film.id}">Редактировать</button>
+<div class="container">
+    <!-- Верхняя часть: Меню и Logout -->
+    <div class="header">
+        <div class="menu">
+            <a th:href="@{/menu}"><h3>Меню</h3></a>
+        </div>
+        <div>
+            <form method="post" th:action="@{/logout}">
+                <button type="submit" class="logout-button">LOGOUT</button>
             </form>
-        </td>
-        <td sec:authorize="hasAuthority('ADMIN')" class="action-buttons">
-            <form sec:authorize="hasAuthority('ADMIN')"
-                  th:action="@{/delete}" method="post">
-                <button type="submit" name="id" th:value="${film.id}">Удалить</button>
-            </form>
-        </td>
-        <td class="action-buttons">
-            <form th:action="@{/addWishes}" method="post">
-                <button type="submit" name="idFilm" th:value="${film.id}">Добавить в желаемые</button>
-            </form>
-        </td>
-        <td class="action-buttons">
-            <form th:action="@{/addWatches}" method="post">
-                <button type="submit" name="idWatchedFilm" th:value="${film.id}">Добавить в просмотренные</button>
-            </form>
-        </td>
+        </div>
+    </div>
 
-    </tr>
-</table>
-</br>
+    <!-- Форма поиска -->
+    <div class="filter-form">
+        <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
+            <h3>Поиск</h3>
+            <label for="title">Название:</label>
+            <input type="text" id="title" th:field="*{title}" placeholder="Введите название фильма"/>
 
-<form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
-    <label for="pageSize">Количество на странице:</label>
-    <input type="number" id="pageSize" name="size" value="10" min="1"/>
-    <button type="submit">Установить</button>
-</form>
+            <label for="yearFrom">Год выпуска (с):</label>
+            <input type="number" id="yearFrom" th:field="*{yearFrom}" placeholder="Введите минимальный год"/>
 
-<div class="pagination">
-    <a th:if="${currentPage > 0}" th:href="@{/getFilms(page=${currentPage - 1}, size=${size})}">&laquo; Пред.</a>
-    <span th:text="'Страница ' + ${currentPage + 1} + ' из ' + ${totalPages}"></span>
-    <a th:if="${currentPage < totalPages - 1}" th:href="@{/getFilms(page=${currentPage + 1}, size=${size})}">След.
-        &raquo;</a>
+            <label for="yearTo">Год выпуска (по):</label>
+            <input type="number" id="yearTo" th:field="*{yearTo}" placeholder="Введите максимальный год"/>
+
+            <label for="genre">Жанр:</label>
+            <input type="text" id="genre" th:field="*{genre}" placeholder="Введите жанр"/>
+
+            <button type="submit">Найти</button>
+        </form>
+    </div>
+
+    <!-- Таблица фильмов -->
+    <div class="table-container">
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/createFilm}">
+            <button class="add-film-button">Добавить новый фильм</button>
+        </a>
+
+        <div th:if="${errorDesired != null}" class="alert alert-danger" th:text="${errorDesired}"></div>
+        <div th:if="${messageDesired != null}" class="alert alert-success" th:text="${messageDesired}"></div>
+        <div th:if="${messageWatched != null}" class="alert alert-success" th:text="${messageWatched}"></div>
+
+        <h3>Список всех фильмов:</h3>
+        <table>
+            <tr>
+                <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
+                <th><B>Название</B></th>
+                <th><B>Описание фильма</B></th>
+                <th><B>Актеры</B></th>
+                <th><B>Год выпуска</B></th>
+                <th><B>Жанр</B></th>
+                <th><B>Режиссер</B></th>
+                <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
+            </tr>
+            <tr th:each="film : ${allFilms}">
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}">...</td>
+                <td th:utext="${film.title}">...</td>
+                <td th:utext="${film.description}">...</td>
+                <td>
+                    <ul>
+                        <li th:each="actor : ${film.actorsDto}">
+                            <span th:text="${actor.actorName}">Actor Name</span>
+                            <span th:text="${actor.actorSurname}">Actor Surname</span>
+                        </li>
+                    </ul>
+                </td>
+                <td th:utext="${film.year}">...</td>
+                <td th:utext="${film.genre}">...</td>
+                <td>
+                    <a th:href="@{/getFilmsByDirectorId/{directorId}(directorId=${film.getDirector().getId()})}">
+                        <span th:utext="${film.getDirector().getDirectorName()}"></span>
+                        <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
+                    </a>
+                </td>
+                <td class="action-buttons">
+                    <form th:action="@{/updateFilm}" method="get">
+                        <button type="submit" name="id" th:value="${film.id}" class="edit-button">Редактировать</button>
+                    </form>
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/delete}" method="post">
+                        <button type="submit" name="id" th:value="${film.id}" class="delete-button">Удалить</button>
+                    </form>
+                    <div style="margin-top: 10px;">
+                        <form th:action="@{/addWishes}" method="post">
+                            <button type="submit" name="idFilm" th:value="${film.id}" class="wish-button">Добавить в желаемые</button>
+                        </form>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <form th:action="@{/addWatches}" method="post">
+                            <button type="submit" name="idWatchedFilm" th:value="${film.id}" class="watch-button">Добавить в просмотренные</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
+            <label for="pageSize">Количество на странице:</label>
+            <input type="number" id="pageSize" name="size" value="10" min="1"/>
+            <button type="submit">Установить</button>
+        </form>
+
+        <div class="pagination">
+            <a th:if="${currentPage > 0}" th:href="@{/getFilms(page=${currentPage - 1}, size=${size})}">&laquo; Пред.</a>
+            <span th:text="'Страница ' + ${currentPage + 1} + ' из ' + ${totalPages}"></span>
+            <a th:if="${currentPage < totalPages - 1}" th:href="@{/getFilms(page=${currentPage + 1}, size=${size})}">След. &raquo;</a>
+        </div>
+    </div>
 </div>
-<!--<img th:src="@{/images/movieWithPopcorn.png}"/>-->
+
 </body>
 </html>
