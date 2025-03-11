@@ -2,10 +2,13 @@ package by.sergey.cinemaservicespring.service.impl;
 
 import by.sergey.cinemaservicespring.entity.Account;
 import by.sergey.cinemaservicespring.entity.Film;
+import by.sergey.cinemaservicespring.entity.User;
 import by.sergey.cinemaservicespring.repository.AccountRepository;
 import by.sergey.cinemaservicespring.repository.FilmRepository;
+import by.sergey.cinemaservicespring.repository.UserRepository;
 import by.sergey.cinemaservicespring.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final FilmRepository filmRepository;
+    private final UserRepository userRepository;
 
     @Override
     public void addFilmToDesireList(Long accountId, Long filmId) {
@@ -50,6 +54,15 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findById(accountId)
                 .orElseThrow(() -> new NoSuchElementException("Аккаунт с таким ID " + accountId + " не найден"));
     }
+
+    @Override
+    public Account findAccountByUsername() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUserName(userName);
+        Account account = accountRepository.findByUser(user);
+        return account;
+    }
+
 
 
     @Override

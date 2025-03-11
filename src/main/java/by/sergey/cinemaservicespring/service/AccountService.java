@@ -2,6 +2,8 @@ package by.sergey.cinemaservicespring.service;
 
 import by.sergey.cinemaservicespring.entity.Account;
 
+import java.util.Optional;
+
 public interface AccountService {
 
     void addFilmToDesireList(Long accountId, Long filmId);
@@ -13,4 +15,7 @@ public interface AccountService {
     void deleteFilmFromWatchedList(Long accountId, Long filmId);
 
     Account getAccountById(Long accountId);
+
+    Account findAccountByUsername();
+
 }

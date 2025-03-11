@@ -22,7 +22,7 @@ public class AccountController {
     @GetMapping("/getAccount")
     public String showAccount(Model model) {
         try {
-            Account account = accountService.getAccountById(1l);
+            Account account = accountService.findAccountByUsername();
             model.addAttribute("user", account.getUser());
             model.addAttribute("films", account.getDesiredFilms());
             model.addAttribute("watchedFilms", account.getWatchedFilms());
@@ -36,7 +36,8 @@ public class AccountController {
     @PostMapping("/addWishes")
     public String addToWishes(@RequestParam("idFilm") Long idFilm, RedirectAttributes redirectAttributes) {
         try {
-            accountService.addFilmToDesireList(1l, idFilm);
+            Account account = accountService.findAccountByUsername();
+            accountService.addFilmToDesireList(account.getId(), idFilm);
             redirectAttributes.addFlashAttribute("messageDesired", "Фильм " + "\"" + filmService.get(idFilm).getTitle() + "\"" + " добавлен в список желаемых!");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorDesired", e.getMessage());
@@ -46,20 +47,23 @@ public class AccountController {
 
     @PostMapping("/addWatches")
     public String addToWatches(@RequestParam("idWatchedFilm") Long idWatchedFilm, RedirectAttributes redirectAttributes) {
-        accountService.addFilmToWatchedList(1l, idWatchedFilm);
+        Account account = accountService.findAccountByUsername();
+        accountService.addFilmToWatchedList(account.getId(), idWatchedFilm);
         redirectAttributes.addFlashAttribute("messageDesired", "Фильм " + "\"" + filmService.get(idWatchedFilm).getTitle() + "\"" + " добавлен в список просмотренных!");
         return "redirect:/getFilms";
     }
 
     @PostMapping("/delete_desired_film")
     public String deleteFromWishes(@RequestParam("idDesire") Long idDesire) {
-        accountService.deleteFilmFromDesireList(1l, idDesire);
+        Account account = accountService.findAccountByUsername();
+        accountService.deleteFilmFromDesireList(account.getId(), idDesire);
         return "redirect:/getAccount";
     }
 
     @PostMapping("/delete_watched_film")
     public String deleteFromWatches(@RequestParam("idWatched") Long idWatched) {
-        accountService.deleteFilmFromWatchedList(1l, idWatched);
+        Account account = accountService.findAccountByUsername();
+        accountService.deleteFilmFromWatchedList(account.getId(), idWatched);
         return "redirect:/getAccount";
     }
 

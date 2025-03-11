@@ -108,23 +108,6 @@
 </form>
 
 
-<!--все поля: добавить город, ошибка доступны только для пользователя ADMIN-->
-<!--<div sec:authorize="hasAuthority('ADMIN')">-->
-
-<!--    <form th:action="@{/addCity}"-->
-<!--          th:object="${addCity}" method="POST">-->
-<!--        Name:-->
-<!--        <div th:if="${#fields.hasErrors('name')}">-->
-<!--            <span th:errors="*{name}" class="error"></span>-->
-<!--        </div>-->
-<!--        <input type="text" th:field="*{name}"/>-->
-<!--        </br>-->
-<!--        Location:-->
-<!--        <input type="text" th:field="*{location}"/>-->
-<!--        </br>-->
-<!--        <input type="submit" value="Добавить город"/>-->
-<!--    </form>-->
-<!--</div>-->
 <br/>
 <a th:href="@{/getFilms}">Вернуться к общему списку фильмов</a>
 </body>
