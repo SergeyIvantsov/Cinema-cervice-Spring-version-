@@ -4,56 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Обновить фильм</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleUpdate.css}"/>
 </head>
 
 <body>
-<h3>Обновить фильм</h3>
-<form th:action="@{/update}" th:object="${filmDto}" method="post">
-    <input type="hidden" th:field="*{id}">
-    <div>
-        <label>
-            Введите название:
-            <input type="text" th:field="*{title}">
-        </label>
-    </div>
-    <br/>
+<div class="form-container">
+    <h3>Обновить фильм</h3>
+    <form th:action="@{/update}" th:object="${filmDto}" method="post">
+        <input type="hidden" th:field="*{id}">
 
-    <div>
-        <label>
-            Введите описание:
-            <input type="text" th:field="*{description}">
-        </label>
-    </div>
-    <br/>
-    <div>
-        <label>
-            Введите год выпуска:
-            <input type="number" th:field="*{year}">
-        </label>
-    </div>
-    <br/>
-    <div>
-        <label>
-            Введите жанр:
-            <input name="text" th:field="*{genre}">
-        </label>
-    </div>
-    <br/>
-    <div>
-        <label>
-            Выберите режиссера:
-            <select th:field="*{director.id}" required>
-                <option value="" selected>---Select Director---</option>
+        <div class="form-group">
+            <label for="title">Введите название:</label>
+            <input type="text" th:field="*{title}" id="title" class="form-control" placeholder="Название фильма" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Введите описание:</label>
+            <input type="text" th:field="*{description}" id="description" class="form-control" placeholder="Описание фильма" required>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Введите год выпуска:</label>
+            <input type="number" th:field="*{year}" id="year" class="form-control" placeholder="Год выпуска" required>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Введите жанр:</label>
+            <input name="text" th:field="*{genre}" id="genre" class="form-control" placeholder="Жанр фильма" required>
+        </div>
+
+        <div class="form-group">
+            <label for="director">Выберите режиссера:</label>
+            <select th:field="*{director.id}" id="director" class="form-control" required>
+                <option value="" selected>--- Выберите режиссера ---</option>
                 <option th:each="director : ${allDirectors}"
                         th:value="${director.id}"
                         th:text="${director.directorName} + ' ' + ${director.directorSurname}">
                 </option>
             </select>
-        </label>
-    </div>
-    <button type="submit">Обновить фильм</button>
-</form>
+        </div>
 
+        <button type="submit" class="btn-submit">Обновить фильм</button>
+    </form>
+</div>
 </body>
+
 </html>

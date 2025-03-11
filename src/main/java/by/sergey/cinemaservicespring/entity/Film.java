@@ -55,9 +55,6 @@ public class Film implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
     private Set<Actor> actors = new HashSet<>();
 
-    /*@OneToOne (mappedBy = "film",
-            cascade ={CascadeType.MERGE, CascadeType.PERSIST},
-            fetch = FetchType.EAGER)
-    private FilmDetails filmDetails;*/
+
 
 }

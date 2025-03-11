@@ -13,11 +13,6 @@ public interface FilmService {
 
     List<FilmDto> getAll();
 
-//    List<FilmDto> getFilmsForPage(int page, int pageSize);
-//
-//    int getTotalFilmCount();
-
-
     void delete(Long id);
 
     List<FilmDto> getFilmsByDirectorId(Long directorId);

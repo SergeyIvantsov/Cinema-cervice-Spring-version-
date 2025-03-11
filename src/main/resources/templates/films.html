@@ -2,200 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:xsi="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
       xsi:schemaLocation="http://www.springframework.org/schema/security">
+
 <head>
     <meta charset="UTF-8">
     <title>Welcome to the Cinema Service!</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        h3 {
-            color: #333;
-        }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .menu h3 {
-            margin: 0;
-        }
-
-        .filter-form {
-            width: 25%;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-right: 20px;
-        }
-
-        .filter-form input,
-        .filter-form button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        .filter-form button {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-
-        .filter-form button:hover {
-            background-color: #0056b3;
-        }
-
-        .logout-button {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .logout-button:hover {
-            background-color: #c82333;
-        }
-
-        .table-container {
-            margin-top: 20px;
-            width: 85%;
-            background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table th,
-        table td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        table th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        table td:nth-child(3) {
-            width: 30%;
-        }
-
-        .action-buttons form {
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        .action-buttons button {
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            border: 1px solid #ddd;
-        }
-
-        .action-buttons .edit-button,
-        .action-buttons .delete-button {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .action-buttons .edit-button:hover,
-        .action-buttons .delete-button:hover {
-            background-color: #0056b3;
-        }
-
-        .action-buttons .delete-button {
-            background-color: #dc3545;
-        }
-
-        .action-buttons .delete-button:hover {
-            background-color: #c82333;
-        }
-
-        .action-buttons .wish-button,
-        .action-buttons .watch-button {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .action-buttons .wish-button:hover,
-        .action-buttons .watch-button:hover {
-            background-color: #218838;
-        }
-
-        .add-film-button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .add-film-button:hover {
-            background-color: #0056b3;
-        }
-
-        .pagination {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .pagination a {
-            color: #007bff;
-            margin: 0 10px;
-            text-decoration: none;
-        }
-
-        .pagination a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleFilms.css}"/>
 </head>
+
 <body>
 
 <div class="container">
@@ -244,7 +57,6 @@
                 <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
                 <th><B>Название</B></th>
                 <th><B>Описание фильма</B></th>
-                <th><B>Актеры</B></th>
                 <th><B>Год выпуска</B></th>
                 <th><B>Жанр</B></th>
                 <th><B>Режиссер</B></th>
@@ -254,14 +66,6 @@
                 <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}">...</td>
                 <td th:utext="${film.title}">...</td>
                 <td th:utext="${film.description}">...</td>
-                <td>
-                    <ul>
-                        <li th:each="actor : ${film.actorsDto}">
-                            <span th:text="${actor.actorName}">Actor Name</span>
-                            <span th:text="${actor.actorSurname}">Actor Surname</span>
-                        </li>
-                    </ul>
-                </td>
                 <td th:utext="${film.year}">...</td>
                 <td th:utext="${film.genre}">...</td>
                 <td>

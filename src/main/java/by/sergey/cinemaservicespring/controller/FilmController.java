@@ -27,8 +27,8 @@ public class FilmController {
 
     @GetMapping("/getFilms")
     public String getFilterFilms(@ModelAttribute("filmsFilter") FilmFilterDto filmFilterDto,
-                                 @RequestParam(defaultValue = "0") int page,  // текущая страница
-                                 @RequestParam(defaultValue = "10") int size, // количество записей на странице
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "10") int size,
                                  Model model) {
         Pageable pageable = PageRequest.of(page, size);
 

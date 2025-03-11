@@ -97,7 +97,7 @@ public class FilmServiceImpl implements FilmService {
         film.setDirector(referenceById);
         Set<Actor> actors = new HashSet<>();
         for (ActorDto actorDto : filmDto.getActorsDto()) {
-            Actor actor = actorRepository.getReferenceById(actorDto.getId()); // Загрузка Actor по ID
+            Actor actor = actorRepository.getReferenceById(actorDto.getId());
             actors.add(actor);
         }
         film.setActors(actors);

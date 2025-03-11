@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-
 <head>
     <meta charset="UTF-8">
     <title>Фильмы режиссера</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleForDir.css}"/>
 </head>
 
 <body>
-<h3>Фильмы режиссера</h3>
-<table>
-    <tr>
-        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
-        <th><B>Название</B></th>
-        <th><B>Описание фильма</B></th>
-        <th><B>Актеры</B></th>
-        <th><B>Год выпуска</B></th>
-        <th><B>Жанр</B></th>
-        <th><B>Режиссер</B></th>
 
-    </tr>
-    <tr th:each="film : ${filmsByDirector}">
-        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}">...</td>
-        <td th:utext="${film.title}">...</td>
-        <td th:utext="${film.description}">...</td>
-        <td>
-            <ul>
-                <li th:each="actor : ${film.actorsDto}">
-                    <span th:text="${actor.actorName}">Actor Name</span>
-                    <span th:text="${actor.actorSurname}">Actor Surname</span>
-                </li>
-            </ul>
-        </td>
-        <td th:utext="${film.year}">...</td>
-        <td th:utext="${film.genre}">...</td>
-        <td>
-            <span th:utext="${film.getDirector().getDirectorName()}"></span>
-            <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
-            </a>
-        </td>
+<div class="container">
+    <div class="header">
+        <div class="menu">
+            <a th:href="@{/menu}"><h3>Меню</h3></a>
+        </div>
+        <div>
+            <form method="post" th:action="@{/logout}">
+                <button type="submit" class="logout-button">LOGOUT</button>
+            </form>
+        </div>
+    </div>
+
+    <h3>Фильмы режиссера</h3>
+    <div class="table-container">
+        <table>
+            <tr>
+                <th sec:authorize="hasAuthority('ADMIN')"><b>Фильм id</b></th>
+                <th><b>Название</b></th>
+                <th><b>Описание фильма</b></th>
+                <th><b>Год выпуска</b></th>
+                <th><b>Жанр</b></th>
+                <th><b>Режиссер</b></th>
+            </tr>
+            <tr th:each="film : ${filmsByDirector}">
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}">...</td>
+                <td th:utext="${film.title}">...</td>
+                <td th:utext="${film.description}">...</td>
+                <td th:utext="${film.year}">...</td>
+                <td th:utext="${film.genre}">...</td>
+                <td>
+                    <span th:utext="${film.getDirector().getDirectorName()}"></span>
+                    <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <a th:href="@{/getFilms}">&laquo; Вернуться к списку фильмов</a>
+    </div>
+</div>
 
 </body>
-<a th:href="@{/getFilms}">К списку фильмов</a>
-
 </html>

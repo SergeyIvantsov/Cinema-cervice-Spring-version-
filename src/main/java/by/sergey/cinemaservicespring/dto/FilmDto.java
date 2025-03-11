@@ -27,8 +27,6 @@ public class FilmDto {
     @Builder.Default
     private DirectorDto director=new DirectorDto();
 
-//    private Set<Long> actorsDto;
-    
     private Set<ActorDto> actorsDto = new HashSet<>();
 
 }

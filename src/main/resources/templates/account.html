@@ -3,91 +3,94 @@
       xmlns:sec="http://www.springframework.org/schema/security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to the Cinema Service!</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <title>Аккаунт</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleForAccount.css}"/>
 </head>
 
 <body>
-<br/>
-<a th:href="@{/menu}"><h3>Назад в меню</h3></a><br/>
-<br/>
-<title>Аккаунт</title>
 
-<div>
-    <p sec:authorize="hasAuthority('ADMIN')">Id пользователя: <span sec:authorize="hasAuthority('ADMIN')" th:text="${user.id}"></span></p>
-    <p>Имя пользователя: <span th:text="${user.userName}"></span></p>
+<div class="container">
+    <div class="header">
+        <div class="menu">
+            <a th:href="@{/menu}"><h3>Назад в меню</h3></a>
+        </div>
+    </div>
+
+    <div class="account-info">
+        <p sec:authorize="hasAuthority('ADMIN')">Id пользователя: <span sec:authorize="hasAuthority('ADMIN')" th:text="${user.id}"></span></p>
+        <p>Имя пользователя: <span th:text="${user.userName}"></span></p>
+    </div>
+    <br/>
+    <h3>Список желаемых к просмотру фильмов:</h3>
+    <div class="table-container">
+        <table>
+            <thead class="desired-films-header">
+            <tr>
+                <th sec:authorize="hasAuthority('ADMIN')"><b>Фильм id</b></th>
+                <th><b>Название</b></th>
+                <th><b>Описание фильма</b></th>
+                <th><b>Год выпуска</b></th>
+                <th><b>Жанр</b></th>
+                <th><b>Режиссер</b></th>
+                <th><b>Действия</b></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="film : ${films}">
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
+                <td th:text="${film.title}"></td>
+                <td th:text="${film.description}"></td>
+                <td th:text="${film.year}"></td>
+                <td th:text="${film.genre}"></td>
+                <td>
+                    <span th:text="${film.director.directorName}"></span>
+                    <span th:text="${film.director.directorSurname}"></span>
+                </td>
+                <td>
+                    <form th:action="@{delete_desired_film}" method="post">
+                        <button type="submit" name="idDesire" th:value="${film.id}" class="delete-button">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <h3>Список просмотренных фильмов:</h3>
+    <div class="table-container">
+        <table>
+            <thead class="watched-films-header">
+            <tr>
+                <th sec:authorize="hasAuthority('ADMIN')"><b>Фильм id</b></th>
+                <th><b>Название</b></th>
+                <th><b>Описание фильма</b></th>
+                <th><b>Год выпуска</b></th>
+                <th><b>Жанр</b></th>
+                <th><b>Режиссер</b></th>
+                <th><b>Действия</b></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="film : ${watchedFilms}">
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
+                <td th:text="${film.title}"></td>
+                <td th:text="${film.description}"></td>
+                <td th:text="${film.year}"></td>
+                <td th:text="${film.genre}"></td>
+                <td>
+                    <span th:text="${film.director.directorName}"></span>
+                    <span th:text="${film.director.directorSurname}"></span>
+                </td>
+                <td>
+                    <form th:action="@{delete_watched_film}" method="post">
+                        <button type="submit" name="idWatched" th:value="${film.id}" class="delete-button">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-
-
-
-<h3>Список желаемых к просмотру фильмов:</h3>
-<table>
-    <thead>
-    <tr>
-        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
-        <th><B>Название</B></th>
-        <th><B>Описание фильма</B></th>
-        <th><B>Год выпуска</B></th>
-        <th><B>Жанр</B></th>
-        <th><B>Режиссер</B></th>
-        <th><B>Действия</B></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="film : ${films}">
-        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
-        <td th:text="${film.title}"></td>
-        <td th:text="${film.description}"></td>
-        <td th:text="${film.year}"></td>
-        <td th:text="${film.genre}"></td>
-        <td>
-            <span th:text="${film.director.directorName}"></span>
-            <span th:text="${film.director.directorSurname}"></span>
-        </td>
-        <td>
-            <form th:action="@{delete_desired_film}" method="post">
-                <button type="submit" name="idDesire" th:value="${film.id}">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</br>
-
-
-<h3>Список просмотренных фильмов:</h3>
-<table>
-    <thead>
-    <tr>
-        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
-        <th><B>Название</B></th>
-        <th><B>Описание фильма</B></th>
-        <th><B>Год выпуска</B></th>
-        <th><B>Жанр</B></th>
-        <th><B>Режиссер</B></th>
-        <th><B>Действия</B></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="film : ${watchedFilms}">
-        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
-        <td th:text="${film.title}"></td>
-        <td th:text="${film.description}"></td>
-        <td th:text="${film.year}"></td>
-        <td th:text="${film.genre}"></td>
-        <td>
-            <span th:text="${film.director.directorName}"></span>
-            <span th:text="${film.director.directorSurname}"></span>
-        </td>
-        <td>
-            <form th:action="@{delete_watched_film}" method="post">
-                <button type="submit" name="idWatched" th:value="${film.id}">Delete</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</br>
 
 </body>
 </html>
