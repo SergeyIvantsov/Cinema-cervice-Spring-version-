@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.springframework.org/schema/security" xmlns="http://www.w3.org/1999/html">
+      xmlns:xsi="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xsi:schemaLocation="http://www.springframework.org/schema/security">
 <head>
     <meta charset="UTF-8">
     <title>Welcome to the Cinema Service!</title>
@@ -9,8 +10,13 @@
 
 
 <body>
+<form method="post" th:action="@{/logout}">
+    <button type="submit">LOGOUT</button>
+</form>
 <a th:href="@{/menu}"><h3>Меню</h3></a>
 <br/>
+
+<td sec:authorize="hasAuthority('ADMIN')"/>
 <a th:href="@{/createFilm}"><h3>Добавить новый фильм:</h3></a><br/>
 <br/>
 <div th:if="${errorDesired != null}" class="alert alert-danger" th:text="${errorDesired}"></div>
@@ -19,20 +25,18 @@
 
 <h3>Поиск</h3>
 
-<h3>Поиск</h3>
-
 <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
     <label for="title">Название:</label>
-    <input type="text" id="title" th:field="*{title}" placeholder="Введите название фильма" /><br/>
+    <input type="text" id="title" th:field="*{title}" placeholder="Введите название фильма"/><br/>
 
     <label for="yearFrom">Год выпуска (с):</label>
-    <input type="number" id="yearFrom" th:field="*{yearFrom}" placeholder="Введите минимальный год" />
+    <input type="number" id="yearFrom" th:field="*{yearFrom}" placeholder="Введите минимальный год"/>
 
     <label for="yearTo">Год выпуска (по):</label>
-    <input type="number" id="yearTo" th:field="*{yearTo}" placeholder="Введите максимальный год" /><br/>
+    <input type="number" id="yearTo" th:field="*{yearTo}" placeholder="Введите максимальный год"/><br/>
 
     <label for="genre">Жанр:</label>
-    <input type="text" id="genre" th:field="*{genre}" placeholder="Введите жанр" /><br/>
+    <input type="text" id="genre" th:field="*{genre}" placeholder="Введите жанр"/><br/>
 
     <button type="submit">Найти</button>
 </form>
@@ -75,12 +79,14 @@
 
 
         <td class="action-buttons">
-            <form th:action="@{/updateFilm}" method="get">
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  th:action="@{/updateFilm}" method="get">
                 <button type="submit" name="id" th:value="${film.id}">Редактировать</button>
             </form>
         </td>
         <td class="action-buttons">
-            <form th:action="@{/delete}" method="post">
+            <form sec:authorize="hasAuthority('ADMIN')"
+                  th:action="@{/delete}" method="post">
                 <button type="submit" name="id" th:value="${film.id}">Удалить</button>
             </form>
         </td>
@@ -100,15 +106,16 @@
 </br>
 
 <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
-<label for="pageSize">Количество на странице:</label>
-<input type="number" id="pageSize" name="size" value="10" min="1" />
-<button type="submit">Установить</button>
+    <label for="pageSize">Количество на странице:</label>
+    <input type="number" id="pageSize" name="size" value="10" min="1"/>
+    <button type="submit">Установить</button>
 </form>
 
 <div class="pagination">
     <a th:if="${currentPage > 0}" th:href="@{/getFilms(page=${currentPage - 1}, size=${size})}">&laquo; Пред.</a>
     <span th:text="'Страница ' + ${currentPage + 1} + ' из ' + ${totalPages}"></span>
-    <a th:if="${currentPage < totalPages - 1}" th:href="@{/getFilms(page=${currentPage + 1}, size=${size})}">След. &raquo;</a>
+    <a th:if="${currentPage < totalPages - 1}" th:href="@{/getFilms(page=${currentPage + 1}, size=${size})}">След.
+        &raquo;</a>
 </div>
 <!--<img th:src="@{/images/movieWithPopcorn.png}"/>-->
 </body>

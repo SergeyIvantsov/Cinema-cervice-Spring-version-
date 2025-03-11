@@ -14,15 +14,11 @@ import java.util.List;
 @SpringBootApplication
 public class CinemaServiceSpringApplication {
 
-    @Autowired
-    private static FilmService filmService;
 
     public static void main(String[] args) {
         SpringApplication.run(CinemaServiceSpringApplication.class, args);
 
-//        List<FilmDto> filteredFilms=filmService.filtersFilms("Джентельмены", 1900, "комедия");
-//        //List<FilmDto> filteredFilms = filmService.filtersFilms("Джентельмены", 1900, "комедия");
-//        System.out.println(filteredFilms.toString());
+
     }
 
 

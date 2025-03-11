@@ -9,8 +9,8 @@
     <include file="db/changelog/V1.0.0/2025-02-02-fill-directors-table.xml"/>
     <include file="db/changelog/V1.0.0/2024-12-29-create-films-table.xml"/>
 
-    <include file="db/changelog/V1.0.0/2025-01-06-create-users-table.xml"/>
-    <include file="db/changelog/V1.0.0/2025-01-06-create-accounts-table.xml"/>
+    <include file="db/changelog/V1.0.0/2025-03-10-create-security-tables.xml"/>
+    <include file="/db/changelog/V1.0.0/2025-01-06-create-accounts-table.xml"/>
     <include file="db/changelog/V1.0.0/2025-01-06-create-films_for_accounts.xml"/>
     <include file="db/changelog/V1.0.0/2025-01-12-create-watched_films_for_accounts.xml"/>
 

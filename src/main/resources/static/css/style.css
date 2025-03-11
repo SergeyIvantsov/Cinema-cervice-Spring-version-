@@ -15,11 +15,11 @@ td, th {
 
 /*body {*/
 /*    background-image: url("static/images/movieWithPopcorn.png");*/
-/*    background-size: cover; !* изображение будет растягиваться на весь экран *!*/
-/*    background-position: center center; !* изображение будет выровнено по центру *!*/
-/*    background-attachment: fixed; !* изображение будет фиксировано на фоне, не прокручивается при скролле *!*/
-/*    background-repeat: no-repeat; !* изображение не будет повторяться *!*/
+/*    background-size: cover;
+/*    background-position: center center;
+/*    background-attachment: fixed;
+/*    background-repeat: no-repeat;
 /*    margin: 0;*/
 /*    padding: 0;*/
-/*    height: 100vh; !* гарантирует, что фон будет на всю высоту *!*/
+/*    height: 100vh;
 /*}*/
