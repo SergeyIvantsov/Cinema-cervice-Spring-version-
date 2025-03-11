@@ -106,7 +106,7 @@
         }
 
         table td:nth-child(3) {
-            width: 30%; /* Увеличиваем ширину колонки с описанием */
+            width: 30%;
         }
 
         .action-buttons form {
@@ -121,7 +121,6 @@
             border: 1px solid #ddd;
         }
 
-        /* Кнопки редактировать и удалить */
         .action-buttons .edit-button,
         .action-buttons .delete-button {
             background-color: #007bff;
@@ -141,7 +140,6 @@
             background-color: #c82333;
         }
 
-        /* Кнопки добавить в желаемые и просмотренные */
         .action-buttons .wish-button,
         .action-buttons .watch-button {
             background-color: #28a745;
@@ -153,7 +151,6 @@
             background-color: #218838;
         }
 
-        /* Кнопка добавить новый фильм */
         .add-film-button {
             background-color: #007bff;
             color: white;
@@ -202,7 +199,6 @@
 <body>
 
 <div class="container">
-    <!-- Верхняя часть: Меню и Logout -->
     <div class="header">
         <div class="menu">
             <a th:href="@{/menu}"><h3>Меню</h3></a>
@@ -214,7 +210,6 @@
         </div>
     </div>
 
-    <!-- Форма поиска -->
     <div class="filter-form">
         <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
             <h3>Поиск</h3>
@@ -234,7 +229,6 @@
         </form>
     </div>
 
-    <!-- Таблица фильмов -->
     <div class="table-container">
         <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/createFilm}">
             <button class="add-film-button">Добавить новый фильм</button>
