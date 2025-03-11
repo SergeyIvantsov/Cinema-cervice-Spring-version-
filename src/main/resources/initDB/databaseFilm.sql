@@ -5,10 +5,10 @@ INSERT INTO cinema_service_spring.films (id, title, genre, description, release_
 INSERT INTO cinema_service_spring.films (id, title, genre, description, release_year, director_id) VALUES (7, 'Астерикс и Обеликс против Цезаря', 'комедия', 'первая официальная экранизация комиксов Рене Госинни и Альбера Удерзо о галлах Астериксе и Обеликсе, которые переживают приключения во времена Римской империи', 1999, 5);
 INSERT INTO cinema_service_spring.films (id, title, genre, description, release_year, director_id) VALUES (8, 'Астерикс и Обеликс: Миссия Клеопатра', 'комедия', 'на этот раз отважным галлам надо помочь египетской царице в противостоянии с Римскими легионами. продолжение фильма «Астерикс и Обеликс против Цезаря».', 2002, 6);
 INSERT INTO cinema_service_spring.films (id, title, genre, description, release_year, director_id) VALUES (9, ' Бриллиантовая рука', 'комедия', 'Кинороман из жизни контрабандистов с прологом и эпилогом. В южном городке орудует шайка «валютчиков», возглавляемая Шефом и его помощником Графом. Скромный советский служащий и примерный семьянин Семен Семеныч Горбунков отправляется в зарубежный круиз на теплоходе, на котором также плывет Граф, который должен забрать бриллианты в одном из восточных городов и провезти их в загипсованной руке. Но в силу недоразумения вместо жулика на условленном месте падает ничего не подозревающий Семен Семенович и драгоценный гипс накладывают ему. Вот тут-то все и начинается…', 1969, 7);
-# INSERT INTO cinema_service_spring.users (id, user_name) VALUES (1, 'user');
+
 INSERT INTO cinema_service_spring.accounts (id, userId) VALUES (1, 1);
 INSERT INTO cinema_service_spring.accounts (id, userId) VALUES (2, 2);
-# INSERT INTO cinema_service_spring.actors (id, actor_name, actor_surname) VALUES (1, 'кто-то', 'торвол');
+
 INSERT INTO cinema_service_spring.film_actors (film_id, actor_id) VALUES (1, 1);
 
 

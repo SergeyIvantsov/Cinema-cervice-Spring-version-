@@ -54,13 +54,13 @@ public class AccountController {
     @PostMapping("/delete_desired_film")
     public String deleteFromWishes(@RequestParam("idDesire") Long idDesire) {
         accountService.deleteFilmFromDesireList(1l, idDesire);
-        return "redirect:/getFilms";
+        return "redirect:/getAccount";
     }
 
     @PostMapping("/delete_watched_film")
     public String deleteFromWatches(@RequestParam("idWatched") Long idWatched) {
         accountService.deleteFilmFromWatchedList(1l, idWatched);
-        return "redirect:/getFilms";
+        return "redirect:/getAccount";
     }
 
 

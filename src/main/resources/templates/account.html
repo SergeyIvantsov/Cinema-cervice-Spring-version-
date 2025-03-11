@@ -14,11 +14,9 @@
 <title>Аккаунт</title>
 
 <div>
-    <p>User Id: <span th:text="${user.id}"></span></p>
-    <p>UserName: <span th:text="${user.userName}"></span></p>
+    <p>Id пользователя: <span th:text="${user.id}"></span></p>
+    <p>Имя пользователя: <span th:text="${user.userName}"></span></p>
 </div>
-<h2>--------------------</h2>
-
 
 
 
@@ -26,18 +24,18 @@
 <table>
     <thead>
     <tr>
-        <th>Film ID</th>
-        <th>Film title</th>
-        <th>Film description</th>
-        <th>Film year</th>
-        <th>Film genre</th>
-        <th>Film director</th>
-        <th>Actions</th>
+        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
+        <th><B>Название</B></th>
+        <th><B>Описание фильма</B></th>
+        <th><B>Год выпуска</B></th>
+        <th><B>Жанр</B></th>
+        <th><B>Режиссер</B></th>
+        <th><B>Действия</B></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="film : ${films}">
-        <td th:text="${film.id}"></td>
+        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
         <td th:text="${film.title}"></td>
         <td th:text="${film.description}"></td>
         <td th:text="${film.year}"></td>
@@ -61,18 +59,18 @@
 <table>
     <thead>
     <tr>
-        <th>Film ID</th>
-        <th>Film title</th>
-        <th>Film description</th>
-        <th>Film year</th>
-        <th>Film genre</th>
-        <th>Film director</th>
-        <th>Actions</th>
+        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
+        <th><B>Название</B></th>
+        <th><B>Описание фильма</B></th>
+        <th><B>Год выпуска</B></th>
+        <th><B>Жанр</B></th>
+        <th><B>Режиссер</B></th>
+        <th><B>Действия</B></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="film : ${watchedFilms}">
-        <td th:text="${film.id}"></td>
+        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
         <td th:text="${film.title}"></td>
         <td th:text="${film.description}"></td>
         <td th:text="${film.year}"></td>

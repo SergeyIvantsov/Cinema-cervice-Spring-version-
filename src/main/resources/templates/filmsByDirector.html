@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -11,17 +11,17 @@
 <h3>Фильмы режиссера</h3>
 <table>
     <tr>
-        <th><B>Film id</B></th>
-        <th><B>Film title</B></th>
-        <th><B>Film description</B></th>
-        <th><B>Film actors</B></th>
-        <th><B>Film year</B></th>
-        <th><B>Film genre</B></th>
-        <th><B>Film director</B></th>
+        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
+        <th><B>Название</B></th>
+        <th><B>Описание фильма</B></th>
+        <th><B>Актеры</B></th>
+        <th><B>Год выпуска</B></th>
+        <th><B>Жанр</B></th>
+        <th><B>Режиссер</B></th>
 
     </tr>
     <tr th:each="film : ${filmsByDirector}">
-        <td th:utext="${film.id}">...</td>
+        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}">...</td>
         <td th:utext="${film.title}">...</td>
         <td th:utext="${film.description}">...</td>
         <td>
@@ -41,6 +41,6 @@
         </td>
 
 </body>
-<a th:href="@{/getFilms}">Return to All Films</a>
+<a th:href="@{/getFilms}">К списку фильмов</a>
 
 </html>

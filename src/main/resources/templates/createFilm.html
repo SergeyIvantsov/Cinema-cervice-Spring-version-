@@ -50,7 +50,7 @@
     <input type="hidden" th:field="*{id}">
    <div>
     <label>
-        Fill film title:
+        Введите название:
         <input type="text" th:field="*{title}">
     </label>
    </div>
@@ -58,28 +58,28 @@
 
     <div>
     <label>
-        Fill film description:
+        Введите описание:
         <input type="text" th:field="*{description}">
     </label>
     </div>
     <br/>
     <div>
     <label>
-        Fill film year:
+        Введите год выпуска:
         <input type="number" th:field="*{year}">
     </label>
     </div>
     <br/>
     <div>
     <label>
-        Fill film genre:
+        Введите жанр:
         <input name="text" th:field="*{genre}">
     </label>
     </div>
     <br/>
     <div>
     <label>
-        Select film director:
+        Выберите режиссера:
         <select th:field="*{director.id}" required>
             <option value="" selected>---Select Director---</option>
             <option th:each="director : ${allDirectors}"
@@ -91,7 +91,7 @@
     </div>
     <br/>
     <div>
-        <label>Select film actors:</label>
+        <label>Выберите актеров:</label>
         <table class="actors-table-container">
             <tbody>
             <tr th:each="actor : ${allActors}">
@@ -126,6 +126,6 @@
 <!--    </form>-->
 <!--</div>-->
 <br/>
-<a th:href="@{/getFilms}">Return to All Films</a>
+<a th:href="@{/getFilms}">Вернуться к общему списку фильмов</a>
 </body>
 </html>

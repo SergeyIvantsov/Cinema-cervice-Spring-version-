@@ -16,8 +16,9 @@
 <a th:href="@{/menu}"><h3>Меню</h3></a>
 <br/>
 
-<td sec:authorize="hasAuthority('ADMIN')"/>
-<a th:href="@{/createFilm}"><h3>Добавить новый фильм:</h3></a><br/>
+</td >
+    <a sec:authorize="hasAuthority('ADMIN')"
+       th:href="@{/createFilm}"><h3>Добавить новый фильм:</h3></a><br/>
 <br/>
 <div th:if="${errorDesired != null}" class="alert alert-danger" th:text="${errorDesired}"></div>
 <div th:if="${messageDesired != null}" class="alert alert-success" th:text="${messageDesired}"></div>
@@ -46,7 +47,7 @@
 <h3>Список всех фильмов:</h3>
 <table>
     <tr>
-        <th><B>Фильм id</B></th>
+        <th sec:authorize="hasAuthority('ADMIN')"><B>Фильм id</B></th>
         <th><B>Название</B></th>
         <th><B>Описание фильма</B></th>
         <th><B>Актеры</B></th>
@@ -56,7 +57,7 @@
 
     </tr>
     <tr th:each="film : ${allFilms}">
-        <td th:utext="${film.id}">...</td>
+        <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}">...</td>
         <td th:utext="${film.title}">...</td>
         <td th:utext="${film.description}">...</td>
         <td>
@@ -78,13 +79,12 @@
         </td>
 
 
-        <td class="action-buttons">
-            <form sec:authorize="hasAuthority('ADMIN')"
-                  th:action="@{/updateFilm}" method="get">
+        <td sec:authorize="hasAuthority('ADMIN')" class="action-buttons">
+            <form th:action="@{/updateFilm}" method="get">
                 <button type="submit" name="id" th:value="${film.id}">Редактировать</button>
             </form>
         </td>
-        <td class="action-buttons">
+        <td sec:authorize="hasAuthority('ADMIN')" class="action-buttons">
             <form sec:authorize="hasAuthority('ADMIN')"
                   th:action="@{/delete}" method="post">
                 <button type="submit" name="id" th:value="${film.id}">Удалить</button>
