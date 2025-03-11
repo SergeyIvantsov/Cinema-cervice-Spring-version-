@@ -3,16 +3,21 @@
       xmlns:sec="http://www.springframework.org/schema/security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Menu</title>
+    <title>Меню</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 
-
 <body>
-<h1>Меню</h1>
-<br/>
-<a th:href="@{/getFilms}"><h2>Список всех фильмов</h2></a>
-<a th:href="@{/getAccount}"><h2>Аккаунт</h2></a><br/>
-
+<div class="container">
+    <h1>Меню</h1>
+    <nav class="menu">
+        <a th:href="@{/getFilms}" class="menu-item">
+            <h2>Список всех фильмов</h2>
+        </a>
+        <a th:href="@{/getAccount}" class="menu-item">
+            <h2>Аккаунт</h2>
+        </a>
+    </nav>
+</div>
 </body>
 </html>

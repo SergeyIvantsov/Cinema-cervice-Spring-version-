@@ -2,16 +2,53 @@ table {
     border-collapse: collapse;
     text-align: center;
 }
-
-
 td, th {
     border: 1px solid black;
 }
 
-
-.error, h2{
-    color:#FF0000;
+.container {
+    text-align: center;
+    font-family: Arial, sans-serif;
 }
+
+h1 {
+    font-size: 36px;
+    color: #4CAF50;
+    margin-bottom: 40px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-item {
+    display: block;
+    padding: 15px;
+    margin: 10px 0;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+    background-color: #45a049;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+
+
+
+
 
 /*body {*/
 /*    background-image: url("static/images/movieWithPopcorn.png");*/

@@ -9,11 +9,8 @@ import by.sergey.cinemaservicespring.repository.UserRepository;
 import by.sergey.cinemaservicespring.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
@@ -49,11 +46,6 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(account);
     }
 
-    @Override
-    public Account getAccountById(Long accountId) {
-        return accountRepository.findById(accountId)
-                .orElseThrow(() -> new NoSuchElementException("Аккаунт с таким ID " + accountId + " не найден"));
-    }
 
     @Override
     public Account findAccountByUsername() {
