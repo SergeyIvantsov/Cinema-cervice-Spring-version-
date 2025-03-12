@@ -14,6 +14,11 @@
         <div class="menu">
             <a th:href="@{/menu}"><h3>Назад в меню</h3></a>
         </div>
+        <div>
+            <form method="post" th:action="@{/logout}">
+                <button type="submit" class="logout-button">LOGOUT</button>
+            </form>
+        </div>
     </div>
 
     <div class="account-info">
