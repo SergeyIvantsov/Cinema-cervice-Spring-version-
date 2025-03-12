@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,10 +23,10 @@ public class AccountController {
     @GetMapping("/getAccount")
     public String showAccount(Model model) {
         try {
-            Account account = accountService.findAccountByUsername();
-            model.addAttribute("user", account.getUser());
-            model.addAttribute("films", account.getDesiredFilms());
-            model.addAttribute("watchedFilms", account.getWatchedFilms());
+            Optional<Account> account = accountService.findAccountByUsername();
+            model.addAttribute("user", account.get().getUser());
+            model.addAttribute("films", account.get().getDesiredFilms());
+            model.addAttribute("watchedFilms", account.get().getWatchedFilms());
             return "account";
         } catch (NoSuchElementException e) {
             model.addAttribute("error", e.getMessage());
@@ -36,8 +37,7 @@ public class AccountController {
     @PostMapping("/addWishes")
     public String addToWishes(@RequestParam("idFilm") Long idFilm, RedirectAttributes redirectAttributes) {
         try {
-            Account account = accountService.findAccountByUsername();
-            accountService.addFilmToDesireList(account.getId(), idFilm);
+            accountService.addFilmToDesireList(idFilm);
             redirectAttributes.addFlashAttribute("messageDesired", "Фильм " + "\"" + filmService.get(idFilm).getTitle() + "\"" + " добавлен в список желаемых!");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorDesired", e.getMessage());
@@ -47,23 +47,24 @@ public class AccountController {
 
     @PostMapping("/addWatches")
     public String addToWatches(@RequestParam("idWatchedFilm") Long idWatchedFilm, RedirectAttributes redirectAttributes) {
-        Account account = accountService.findAccountByUsername();
-        accountService.addFilmToWatchedList(account.getId(), idWatchedFilm);
-        redirectAttributes.addFlashAttribute("messageDesired", "Фильм " + "\"" + filmService.get(idWatchedFilm).getTitle() + "\"" + " добавлен в список просмотренных!");
+        try {
+            accountService.addFilmToWatchedList(idWatchedFilm);
+            redirectAttributes.addFlashAttribute("messageDesired", "Фильм " + "\"" + filmService.get(idWatchedFilm).getTitle() + "\"" + " добавлен в список просмотренных!");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorDesired", e.getMessage());
+        }
         return "redirect:/getFilms";
     }
 
     @PostMapping("/delete_desired_film")
     public String deleteFromWishes(@RequestParam("idDesire") Long idDesire) {
-        Account account = accountService.findAccountByUsername();
-        accountService.deleteFilmFromDesireList(account.getId(), idDesire);
+        accountService.deleteFilmFromDesireList(idDesire);
         return "redirect:/getAccount";
     }
 
     @PostMapping("/delete_watched_film")
     public String deleteFromWatches(@RequestParam("idWatched") Long idWatched) {
-        Account account = accountService.findAccountByUsername();
-        accountService.deleteFilmFromWatchedList(account.getId(), idWatched);
+        accountService.deleteFilmFromWatchedList(idWatched);
         return "redirect:/getAccount";
     }
 

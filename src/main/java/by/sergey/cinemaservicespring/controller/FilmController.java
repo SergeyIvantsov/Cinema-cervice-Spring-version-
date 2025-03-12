@@ -62,7 +62,7 @@ public class FilmController {
     public String saveOrUpdate(@ModelAttribute("addFilm") FilmDto filmDto) {
         System.out.println("Полученный FilmDto: " + filmDto);
         for (ActorDto actorDto : filmDto.getActorsDto()) {
-            System.out.println("Актер: " + actorDto);
+            System.out.println("Актер: " + actorDto);//toDo вместо этого подключить LOGI (LOG4J)
         }
         filmService.saveOrUpdate(filmDto);
         return "redirect:/getFilms";

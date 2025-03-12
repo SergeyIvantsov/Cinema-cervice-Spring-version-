@@ -75,7 +75,7 @@
                     </a>
                 </td>
                 <td class="action-buttons">
-                    <form th:action="@{/updateFilm}" method="get">
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/updateFilm}" method="get">
                         <button type="submit" name="id" th:value="${film.id}" class="edit-button">Редактировать</button>
                     </form>
                     <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/delete}" method="post">
@@ -90,6 +90,13 @@
                         <form th:action="@{/addWatches}" method="post">
                             <button type="submit" name="idWatchedFilm" th:value="${film.id}" class="watch-button">Добавить в просмотренные</button>
                         </form>
+<!--                        сделать неактивными кнопки после их нажатия для добавления в список-->
+<!--                        вывести всех режиссеров-->
+<!--                        поля актеров-->
+<!--                        добавить детали-->
+<!--                        убрать SOUT()-->
+<!--                        контроллер адвайс, эксептион хэндлер (обработка исключений)-->
+
                     </div>
                 </td>
             </tr>

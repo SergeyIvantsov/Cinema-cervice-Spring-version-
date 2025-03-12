@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -21,8 +23,16 @@ public class AccountServiceImpl implements AccountService {
     private final UserRepository userRepository;
 
     @Override
-    public void addFilmToDesireList(Long accountId, Long filmId) {
-        Account account = accountRepository.findById(accountId)
+    public Optional<Account> findAccountByUsername() {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUserName(userName);
+        Optional<Account> account = Optional.ofNullable(accountRepository.findByUser(user));
+        return account;
+    }
+
+    @Override
+    public void addFilmToDesireList(Long filmId) {
+        Account account = findAccountByUsername()
                 .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
@@ -34,8 +44,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void addFilmToWatchedList(Long accountId, Long filmId) {
-        Account account = accountRepository.findById(accountId)
+    public void addFilmToWatchedList(Long filmId) {
+        Account account = findAccountByUsername()
                 .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
@@ -48,18 +58,8 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public Account findAccountByUsername() {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUserName(userName);
-        Account account = accountRepository.findByUser(user);
-        return account;
-    }
-
-
-
-    @Override
-    public void deleteFilmFromDesireList(Long accountId, Long filmId) {
-        Account account = accountRepository.findById(accountId)
+    public void deleteFilmFromDesireList(Long filmId) {
+        Account account = findAccountByUsername()
                 .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
@@ -68,8 +68,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deleteFilmFromWatchedList(Long accountId, Long filmId) {
-        Account account = accountRepository.findById(accountId)
+    public void deleteFilmFromWatchedList(Long filmId) {
+        Account account = findAccountByUsername()
                 .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
