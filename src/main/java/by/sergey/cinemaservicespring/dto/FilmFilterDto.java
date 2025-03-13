@@ -1,15 +1,14 @@
 package by.sergey.cinemaservicespring.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
+@Data
+@EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Data
-public class FilmFilterDto {
+public class FilmFilterDto extends PageFilterDto{
     private String title;
     private Integer year;
     private Integer yearFrom;

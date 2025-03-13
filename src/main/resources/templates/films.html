@@ -104,7 +104,7 @@
 
         <form th:action="@{/getFilms}" th:object="${filmsFilter}" method="get">
             <label for="pageSize">Количество на странице:</label>
-            <input type="number" id="pageSize" name="size" value="10" min="1"/>
+            <input type="number" id="pageSize" name="size" th:value="${size}" min="1"/>
             <button type="submit">Установить</button>
         </form>
 

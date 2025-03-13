@@ -8,6 +8,7 @@ import by.sergey.cinemaservicespring.service.DirectorService;
 import by.sergey.cinemaservicespring.service.FilmService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -30,22 +31,13 @@ public class FilmController {
                                  @RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "10") int size,
                                  Model model) {
-        Pageable pageable = PageRequest.of(page, size);
 
-
-        List<FilmDto> filteredFilms = filmService.filtersFilms(filmFilterDto.getTitle(),
-                filmFilterDto.getYear(), filmFilterDto.getGenre(), filmFilterDto.getYearFrom(),
-                filmFilterDto.getYearTo(), pageable);
-
-
-        long totalFilms = filmService.getTotalFilmCount(filmFilterDto.getTitle(),
-                filmFilterDto.getYear(), filmFilterDto.getGenre(), filmFilterDto.getYearFrom(),
-                filmFilterDto.getYearTo());
-        int totalPages = (int) Math.ceil((double) totalFilms / size);
-
-        model.addAttribute("allFilms", filteredFilms);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("currentPage", page);
+        filmFilterDto.setPageNumber(page + 1);
+        filmFilterDto.setPageSize(size);
+        Page<FilmDto> filmsPage = filmService.getFilmsByFilter(filmFilterDto);
+        model.addAttribute("allFilms", filmsPage);
+        model.addAttribute("totalPages", filmsPage.getTotalPages());
+        model.addAttribute("currentPage", filmsPage.getNumber());
         model.addAttribute("size", size);
         return "films";
     }
