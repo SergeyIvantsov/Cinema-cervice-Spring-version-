@@ -47,11 +47,9 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<FilmDto> filtersFilms(String title, Integer year, String genre, Integer yearFrom, Integer yearTo, Pageable pageable) {
-        Specification<Film> spec = Specification.where(
-                (title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null
-        ).or(
-                (genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null
-        );
+        Specification<Film> spec = Specification
+                .where((title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null)
+                .or((genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null);
         if (year != null) {
             spec = spec.and(FilmSpecification.hasYear(year));
         }
@@ -71,11 +69,9 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public long getTotalFilmCount(String title, Integer year, String genre, Integer yearFrom, Integer yearTo) {
-        Specification<Film> spec = Specification.where(
-                (title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null
-        ).or(
-                (genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null
-        );
+        Specification<Film> spec = Specification
+                .where((title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null)
+                .or((genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null);
         if (year != null) {
             spec = spec.and(FilmSpecification.hasYear(year));
         }
