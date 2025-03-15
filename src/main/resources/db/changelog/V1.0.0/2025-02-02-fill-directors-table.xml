@@ -45,8 +45,8 @@
 
         <insert tableName="directors">
             <column name="id_director" value="7"/>
-            <column name="director_name" value="Леонид"/>
-            <column name="director_surname" value="Гайдай"/>
+            <column name="director_name" value="Максим"/>
+            <column name="director_surname" value="Петров"/>
         </insert>
 
     </changeSet>
