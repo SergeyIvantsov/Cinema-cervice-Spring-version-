@@ -3,6 +3,7 @@ package by.sergey.cinemaservicespring.controller;
 import by.sergey.cinemaservicespring.dto.ActorDto;
 import by.sergey.cinemaservicespring.dto.FilmDto;
 import by.sergey.cinemaservicespring.dto.FilmFilterDto;
+import by.sergey.cinemaservicespring.dto.WrapperFilmDto;
 import by.sergey.cinemaservicespring.service.ActorService;
 import by.sergey.cinemaservicespring.service.DirectorService;
 import by.sergey.cinemaservicespring.service.FilmService;
@@ -44,19 +45,14 @@ public class FilmController {
 
     @GetMapping("/createFilm")
     public String createFilm(Model model) {
-        model.addAttribute("addFilm", new FilmDto());
-        model.addAttribute("allActors", actorService.findAll());
-        model.addAttribute("allDirectors", directorService.getAll());
+        model.addAttribute("wrapperFilm", filmService.createFilm());
         return "createFilm";
     }
 
     @PostMapping("/save")
-    public String saveOrUpdate(@ModelAttribute("addFilm") FilmDto filmDto) {
-        System.out.println("Полученный FilmDto: " + filmDto);
-        for (ActorDto actorDto : filmDto.getActorsDto()) {
-            System.out.println("Актер: " + actorDto);//toDo вместо этого подключить LOGI (LOG4J)
-        }
-        filmService.saveOrUpdate(filmDto);
+    public String saveOrUpdate(@ModelAttribute("wrapperFilm") WrapperFilmDto wrapperFilmDto) {
+
+        filmService.saveOrUpdate(wrapperFilmDto.getFilmDto());
         return "redirect:/getFilms";
     }
 

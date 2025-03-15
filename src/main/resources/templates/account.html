@@ -22,8 +22,8 @@
     </div>
 
     <div class="account-info">
-        <p sec:authorize="hasAuthority('ADMIN')">Id пользователя: <span sec:authorize="hasAuthority('ADMIN')" th:text="${user.id}"></span></p>
-        <p>Имя пользователя: <span th:text="${user.userName}"></span></p>
+        <p sec:authorize="hasAuthority('ADMIN')">Id пользователя: <span sec:authorize="hasAuthority('ADMIN')" th:text="${showAccount.userDto.id}"></span></p>
+        <p>Имя пользователя: <span th:text="${showAccount.userDto.userName}"></span></p>
     </div>
     <br/>
     <h3>Список желаемых к просмотру фильмов:</h3>
@@ -41,7 +41,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="film : ${films}">
+            <tr th:each="film : ${showAccount.desiredFilmsDto}">
                 <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
                 <td th:text="${film.title}"></td>
                 <td th:text="${film.description}"></td>
@@ -76,7 +76,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="film : ${watchedFilms}">
+            <tr th:each="film : ${showAccount.watchedFilmsDto}">
                 <td sec:authorize="hasAuthority('ADMIN')" th:utext="${film.id}"></td>
                 <td th:text="${film.title}"></td>
                 <td th:text="${film.description}"></td>

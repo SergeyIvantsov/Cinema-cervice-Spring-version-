@@ -1,5 +1,7 @@
 package by.sergey.cinemaservicespring.service.impl;
 
+import by.sergey.cinemaservicespring.dto.AccountDto;
+import by.sergey.cinemaservicespring.dto.FilmDto;
 import by.sergey.cinemaservicespring.entity.Account;
 import by.sergey.cinemaservicespring.entity.Film;
 import by.sergey.cinemaservicespring.entity.User;
@@ -7,12 +9,17 @@ import by.sergey.cinemaservicespring.repository.AccountRepository;
 import by.sergey.cinemaservicespring.repository.FilmRepository;
 import by.sergey.cinemaservicespring.repository.UserRepository;
 import by.sergey.cinemaservicespring.service.AccountService;
+import by.sergey.cinemaservicespring.utils.converter.ConverterUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -23,30 +30,28 @@ public class AccountServiceImpl implements AccountService {
     private final UserRepository userRepository;
 
     @Override
-    public Optional<Account> findAccountByUsername() {
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUserName(userName);
-        Optional<Account> account = Optional.ofNullable(accountRepository.findByUser(user));
-        return account;
+    public AccountDto findAccountByUsername() {
+        Account account = getAccount();
+        AccountDto accountDto = ConverterUtil.convertAccount(account);
+        return accountDto;
     }
 
     @Override
-    public void addFilmToDesireList(Long filmId) {
-        Account account = findAccountByUsername()
-                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
+    public String addFilmToDesireList(Long filmId) {
+        Account account = getAccount();
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
         if (account.getWatchedFilms().contains(film)) {
-            throw new IllegalArgumentException("Вы уже посмотрели этот фильм. Он не может быть добавлен в список желаемых.");
+            throw new IllegalArgumentException("Вы уже посмотрели этот фильм. Он не может быть добавлен в список желаемых.");//toDo сделать кастомный exception
         }
         account.getDesiredFilms().add(film);
         accountRepository.save(account);
+        return film.getTitle();
     }
 
     @Override
-    public void addFilmToWatchedList(Long filmId) {
-        Account account = findAccountByUsername()
-                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
+    public String addFilmToWatchedList(Long filmId) {
+        Account account = getAccount();
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
         if (account.getDesiredFilms().contains(film)) {
@@ -54,13 +59,13 @@ public class AccountServiceImpl implements AccountService {
         }
         account.getWatchedFilms().add(film);
         accountRepository.save(account);
+        return film.getTitle();
     }
 
 
     @Override
     public void deleteFilmFromDesireList(Long filmId) {
-        Account account = findAccountByUsername()
-                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
+        Account account = getAccount();
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
         account.getDesiredFilms().remove(film);
@@ -69,11 +74,17 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteFilmFromWatchedList(Long filmId) {
-        Account account = findAccountByUsername()
-                .orElseThrow(() -> new IllegalArgumentException("Аккаунт не найден"));
+        Account account = getAccount();
         Film film = filmRepository.findById(filmId)
                 .orElseThrow(() -> new IllegalArgumentException("Фильм не найден"));
         account.getWatchedFilms().remove(film);
         accountRepository.save(account);
+    }
+
+    private Account getAccount(){
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUserName(userName);
+        Optional<Account> acc = Optional.ofNullable(accountRepository.findByUser(user));
+        return acc.get();
     }
 }

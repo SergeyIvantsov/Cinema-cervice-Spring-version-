@@ -1,14 +1,14 @@
 package by.sergey.cinemaservicespring.service.impl;
 
-import by.sergey.cinemaservicespring.dto.ActorDto;
-import by.sergey.cinemaservicespring.dto.FilmDto;
-import by.sergey.cinemaservicespring.dto.FilmFilterDto;
+import by.sergey.cinemaservicespring.dto.*;
 import by.sergey.cinemaservicespring.entity.Actor;
 import by.sergey.cinemaservicespring.entity.Director;
 import by.sergey.cinemaservicespring.entity.Film;
 import by.sergey.cinemaservicespring.repository.ActorRepository;
 import by.sergey.cinemaservicespring.repository.DirectorRepository;
 import by.sergey.cinemaservicespring.repository.FilmRepository;
+import by.sergey.cinemaservicespring.service.ActorService;
+import by.sergey.cinemaservicespring.service.DirectorService;
 import by.sergey.cinemaservicespring.service.FilmService;
 import by.sergey.cinemaservicespring.utils.converter.ConverterUtil;
 import by.sergey.cinemaservicespring.utils.filtrs.FilmSpecification;
@@ -31,6 +31,9 @@ import java.util.stream.Collectors;
 public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
+    private final DirectorService directorService;
+    private final ActorService actorService;
+
     private final DirectorRepository directorRepository;
     private final ActorRepository actorRepository;
 
@@ -143,6 +146,21 @@ public class FilmServiceImpl implements FilmService {
             return ConverterUtil.convertFilm(save);
         }
         return null;
+    }
+
+    @Override
+    public WrapperFilmDto createFilm (){
+        WrapperFilmDto wrapperFilmDto = new WrapperFilmDto();
+        wrapperFilmDto.setFilmDto(new FilmDto());
+        Set<DirectorDto> directors = new HashSet<>();
+        directors.addAll(directorService.getAll());
+        wrapperFilmDto.setAllDirectors(directors);
+
+        Set<ActorDto> actors = new HashSet<>();
+        actors.addAll(actorService.findAll());
+        wrapperFilmDto.setAllActors(actors);
+        return wrapperFilmDto;
+
     }
 
     @Override

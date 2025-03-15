@@ -10,7 +10,7 @@
 <body>
 <div class="form-container">
     <h3>Добавить фильм</h3>
-    <form th:action="@{/save}" th:object="${addFilm}" method="post">
+    <form th:action="@{/save}" th:object="${wrapperFilm.filmDto}" method="post">
         <input type="hidden" th:field="*{id}">
 
         <div class="form-group">
@@ -37,7 +37,7 @@
             <label for="director">Выберите режиссера:</label>
             <select th:field="*{director.id}" id="director" class="form-control" required>
                 <option value="" selected>--- Выберите режиссера ---</option>
-                <option th:each="director : ${allDirectors}"
+                <option th:each="director : ${wrapperFilm.allDirectors}"
                         th:value="${director.id}"
                         th:text="${director.directorName} + ' ' + ${director.directorSurname}">
                 </option>

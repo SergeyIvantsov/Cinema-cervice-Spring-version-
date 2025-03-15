@@ -105,19 +105,19 @@ public class ConverterUtil {
         return AccountDto.builder()
                 .id(account.getId())
                 .userDto(convertUser(account.getUser()))
-                .desiredFilms(desiredFilmsDto)
-                .watchedFilms(watchedFilmsDto)
+                .desiredFilmsDto(desiredFilmsDto)
+                .watchedFilmsDto(watchedFilmsDto)
                 .build();
     }
 
     public static Account convertAccount(AccountDto accountDto) {
-       Set<FilmDto> filmDtoSet = accountDto.getDesiredFilms();
+       Set<FilmDto> filmDtoSet = accountDto.getDesiredFilmsDto();
         Set<Film> films = new HashSet<>();
        for (FilmDto filmDto : filmDtoSet) {
            films.add(convertFilm(filmDto));
        }
 
-       Set<FilmDto> watchedFilmsDto = accountDto.getWatchedFilms();
+       Set<FilmDto> watchedFilmsDto = accountDto.getWatchedFilmsDto();
        Set<Film> watchedFilmsSet = new HashSet<>();
        for (FilmDto filmDto : watchedFilmsDto) {
            watchedFilmsSet.add(convertFilm(filmDto));
