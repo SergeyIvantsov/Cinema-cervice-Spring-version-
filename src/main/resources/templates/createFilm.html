@@ -44,6 +44,16 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="actors">Выберите актеров:</label>
+            <select th:field="*{actorsMass}" id="actors" class="form-control" multiple="multiple" required>
+                <option th:each="actor : ${wrapperFilm.allActors}"
+                        th:value="${actor.id}"
+                        th:text="${actor.actorName} + ' ' + ${actor.actorSurname}">
+                </option>
+            </select>
+        </div>
+
         <button type="submit">Добавить фильм</button>
     </form>
 

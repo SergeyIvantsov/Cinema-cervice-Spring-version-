@@ -140,7 +140,6 @@ public class FilmServiceImpl implements FilmService {
             actors.add(actor);
         }
         film.setActors(actors);
-
         Film save = filmRepository.save(film);
         if (film != null) {
             return ConverterUtil.convertFilm(save);

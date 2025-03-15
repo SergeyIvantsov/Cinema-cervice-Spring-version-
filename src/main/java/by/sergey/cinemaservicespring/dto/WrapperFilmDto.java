@@ -19,4 +19,5 @@ public class WrapperFilmDto {
     private Set<DirectorDto> allDirectors = new HashSet<>();
 
     private Set<ActorDto> allActors = new HashSet<>();
+
 }

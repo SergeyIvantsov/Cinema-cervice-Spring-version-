@@ -29,4 +29,5 @@ public class FilmDto {
 
     private Set<ActorDto> actorsDto = new HashSet<>();
 
+    private String [] actorsMass;
 }

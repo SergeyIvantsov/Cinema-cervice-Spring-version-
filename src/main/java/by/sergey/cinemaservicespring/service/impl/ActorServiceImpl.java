@@ -31,10 +31,17 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public List<ActorDto> findAll() {
-       return actorRepository.findAll()
+        return actorRepository.findAll()
                 .stream()
-               .map(ConverterUtil::convertActor)
-               .collect(Collectors.toList());
+                .map(ConverterUtil::convertActor)
+                .collect(Collectors.toList());
     }
+
+    @Override
+    public Actor getReferenceById(Long id) {
+       return actorRepository.findById(id).get();
+    }
+
+
 
 }
