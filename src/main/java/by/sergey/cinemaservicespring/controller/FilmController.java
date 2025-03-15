@@ -61,17 +61,14 @@ public class FilmController {
                 .map(id -> Long.parseLong(id)) // Преобразуем строковые id в Long
                 .collect(Collectors.toSet());
 //todo вынести всю логику в сервис
-
         // Получаем актеров из базы данных по их id
         Set<ActorDto> actorsDto = new HashSet<>();
-
         for (Long actorId : actorIds) {
             //todo в БД передать список id (запрос через IN)
             Actor referenceById = actorService.getReferenceById(actorId);
             ActorDto actorDto = ConverterUtil.convertActor(referenceById);
             actorsDto.add(actorDto);
         }
-
 
         // Устанавливаем актеров в FilmDto
         wrapperFilmDto.getFilmDto().setActorsDto(actorsDto);

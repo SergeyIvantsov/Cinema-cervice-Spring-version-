@@ -60,6 +60,7 @@
                 <th><B>Год выпуска</B></th>
                 <th><B>Жанр</B></th>
                 <th><B>Режиссер</B></th>
+                <th><B>Актеры</B></th>
                 <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
             </tr>
             <tr th:each="film : ${allFilms}">
@@ -74,6 +75,15 @@
                         <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
                     </a>
                 </td>
+
+
+                <td>
+                    <ul>
+                        <li th:each="actor : ${film.actorsDto}"
+                            th:text="${actor.actorName} + ' ' + ${actor.actorSurname}">...</li>
+                    </ul>
+                </td>
+
                 <td class="action-buttons">
                     <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/updateFilm}" method="get">
                         <button type="submit" name="id" th:value="${film.id}" class="edit-button">Редактировать</button>
