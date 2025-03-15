@@ -4,8 +4,9 @@ import by.sergey.cinemaservicespring.dto.DirectorDto;
 import by.sergey.cinemaservicespring.entity.Director;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DirectorService {
 
-    List<DirectorDto> getAll();
+    Set<DirectorDto> getAll();
 }

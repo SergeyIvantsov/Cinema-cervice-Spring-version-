@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -21,10 +22,10 @@ public class DirectorServiceImpl implements DirectorService {
     private final DirectorRepository directorRepository;
 
     @Override
-    public List<DirectorDto> getAll(){
+    public Set<DirectorDto> getAll(){
         return directorRepository.findAll().stream()
                 .map(ConverterUtil::convertDirector)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
 
