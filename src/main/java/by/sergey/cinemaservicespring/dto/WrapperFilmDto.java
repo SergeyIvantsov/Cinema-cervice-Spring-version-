@@ -20,4 +20,6 @@ public class WrapperFilmDto {
 
     private Set<ActorDto> allActors = new HashSet<>();
 
+    private String[] actorsMass;
+
 }

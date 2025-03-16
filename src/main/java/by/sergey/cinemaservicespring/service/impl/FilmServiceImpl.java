@@ -20,6 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -154,12 +155,10 @@ public class FilmServiceImpl implements FilmService {
         Set<DirectorDto> directors = new HashSet<>();
         directors.addAll(directorService.getAll());
         wrapperFilmDto.setAllDirectors(directors);
-
         Set<ActorDto> actors = new HashSet<>();
         actors.addAll(actorService.findAll());
         wrapperFilmDto.setAllActors(actors);
         return wrapperFilmDto;
-
     }
 
     @Override
@@ -174,4 +173,18 @@ public class FilmServiceImpl implements FilmService {
                 .map(ConverterUtil::convertFilm)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void saveOrUpdateFilmWithActors(WrapperFilmDto wrapperFilmDto) {
+        Set<Long> actorIds = Arrays.stream(wrapperFilmDto.getActorsMass())
+                .map(id -> Long.parseLong(id))
+                .collect(Collectors.toSet());
+        Set<ActorDto> actorsDto = actorService.findActorsByIds(actorIds);
+        wrapperFilmDto.getFilmDto().setActorsDto(actorsDto);
+        saveOrUpdate(wrapperFilmDto.getFilmDto());
+    }
+
+
+
+
 }

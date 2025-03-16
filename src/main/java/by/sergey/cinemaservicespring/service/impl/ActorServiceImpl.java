@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,6 +41,14 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public Actor getReferenceById(Long id) {
        return actorRepository.findById(id).get();
+    }
+
+    @Override
+    public Set<ActorDto> findActorsByIds(Set<Long> ids) {
+        Set<Actor> allActorsById = actorRepository.findByIdIn(ids);
+        Set<ActorDto> allActorsDto = allActorsById.stream()
+                .map(ConverterUtil::convertActor).collect(Collectors.toSet());
+        return allActorsDto;
     }
 
 

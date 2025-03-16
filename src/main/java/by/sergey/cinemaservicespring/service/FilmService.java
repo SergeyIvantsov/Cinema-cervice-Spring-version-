@@ -4,7 +4,6 @@ import by.sergey.cinemaservicespring.dto.FilmDto;
 import by.sergey.cinemaservicespring.dto.FilmFilterDto;
 import by.sergey.cinemaservicespring.dto.WrapperFilmDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -27,5 +26,7 @@ public interface FilmService {
     Page<FilmDto> getFilmsByFilter(FilmFilterDto filmFilter);
 
     WrapperFilmDto createFilm();
+
+    void saveOrUpdateFilmWithActors(WrapperFilmDto wrapperFilmDto);
 
 }
