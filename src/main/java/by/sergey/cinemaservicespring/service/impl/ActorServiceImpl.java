@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,11 +30,11 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public List<ActorDto> findAll() {
+    public Set<ActorDto> findAll() {
         return actorRepository.findAll()
                 .stream()
                 .map(ConverterUtil::convertActor)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     @Override

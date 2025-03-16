@@ -22,4 +22,6 @@ public class WrapperFilmDto {
 
     private String[] actorsMass;
 
+    private Set<Long> selectedIdActors = new HashSet<>();
+
 }

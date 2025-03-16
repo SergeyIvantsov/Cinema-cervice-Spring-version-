@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequiredArgsConstructor
 public class FilmController {
@@ -53,15 +51,15 @@ public class FilmController {
 
     @GetMapping("/updateFilm")
     public String showUpdateForm(@RequestParam("id") Long id, Model model) {
-        FilmDto filmDto = filmService.get(id);
-        model.addAttribute("filmDto", filmDto);
-        model.addAttribute("allDirectors", directorService.getAll());
+        WrapperFilmDto filmForUpdate = filmService.getFilmForUpdate(id);
+        model.addAttribute("wrapperFilmDto", filmForUpdate);
         return "updateFilm";
     }
 
+
     @PostMapping("/update")
-    public String update(@ModelAttribute("wrapperFilm") WrapperFilmDto wrapperFilmDto) {
-        filmService.saveOrUpdate(wrapperFilmDto.getFilmDto());
+    public String update(@ModelAttribute("wrapperFilmDto") WrapperFilmDto wrapperFilmDto) {
+        filmService.saveOrUpdateFilmWithActors(wrapperFilmDto);
         return "redirect:/getFilms";
     }
 
@@ -73,8 +71,7 @@ public class FilmController {
 
     @GetMapping("/getFilmsByDirectorId/{directorId}")
     public String getFilmsByDirector(@PathVariable("directorId") Long directorId, Model model) {
-        List<FilmDto> filmsByDirector = filmService.getFilmsByDirectorId(directorId);
-        model.addAttribute("filmsByDirector", filmsByDirector);
+        model.addAttribute("filmsByDirector", filmService.getFilmsByDirectorId(directorId));
         return "filmsByDirector";
     }
 

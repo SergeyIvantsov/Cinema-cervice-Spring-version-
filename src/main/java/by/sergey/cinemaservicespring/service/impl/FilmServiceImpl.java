@@ -20,7 +20,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -90,45 +89,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
 
-    /*@Override
-    public List<FilmDto> filtersFilms(String title, Integer year, String genre, Integer yearFrom, Integer yearTo, Pageable pageable) {
-        Specification<Film> spec = Specification
-                .where((title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null)
-                .or((genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null);
-        if (year != null) {
-            spec = spec.and(FilmSpecification.hasYear(year));
-        }
-        if (yearFrom != null && yearTo != null) {
-            spec = spec.and(FilmSpecification.hasYearBetween(yearFrom, yearTo));
-        } else if (yearFrom != null) {
-            spec = spec.and(FilmSpecification.hasYearGreaterThanOrEqualTo(yearFrom));
-        } else if (yearTo != null) {
-            spec = spec.and(FilmSpecification.hasYearLessThanOrEqualTo(yearTo));
-        }
-        List<Film> films = filmRepository.findAll(spec, pageable).getContent();
-        return films.stream()
-                .map(ConverterUtil::convertFilm)
-                .collect(Collectors.toList());
-    }
 
-    @Override
-    public long getTotalFilmCount(String title, Integer year, String genre, Integer yearFrom, Integer yearTo) {
-        Specification<Film> spec = Specification
-                .where((title != null && !title.isEmpty()) ? FilmSpecification.hasTitle(title) : null)
-                .or((genre != null && !genre.isEmpty()) ? FilmSpecification.hasGenre(genre) : null);
-        if (year != null) {
-            spec = spec.and(FilmSpecification.hasYear(year));
-        }
-        if (yearFrom != null && yearTo != null) {
-            spec = spec.and(FilmSpecification.hasYearBetween(yearFrom, yearTo));
-        } else if (yearFrom != null) {
-            spec = spec.and(FilmSpecification.hasYearGreaterThanOrEqualTo(yearFrom));
-        } else if (yearTo != null) {
-            spec = spec.and(FilmSpecification.hasYearLessThanOrEqualTo(yearTo));
-        }
-        return filmRepository.count(spec);
-    }
-*/
 
     @Override
     public FilmDto saveOrUpdate(FilmDto filmDto) {
@@ -176,15 +137,25 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public void saveOrUpdateFilmWithActors(WrapperFilmDto wrapperFilmDto) {
-        Set<Long> actorIds = Arrays.stream(wrapperFilmDto.getActorsMass())
-                .map(id -> Long.parseLong(id))
-                .collect(Collectors.toSet());
+        Set<Long> actorIds = wrapperFilmDto.getSelectedIdActors();
+
         Set<ActorDto> actorsDto = actorService.findActorsByIds(actorIds);
         wrapperFilmDto.getFilmDto().setActorsDto(actorsDto);
         saveOrUpdate(wrapperFilmDto.getFilmDto());
     }
 
 
-
+    @Override
+    public WrapperFilmDto getFilmForUpdate(Long id) {
+        WrapperFilmDto wrapperFilmDto = new WrapperFilmDto();
+        wrapperFilmDto.setFilmDto(get(id));
+        wrapperFilmDto.setAllDirectors(directorService.getAll());
+        wrapperFilmDto.setAllActors(actorService.findAll());
+        Set<Long> selectedIds = wrapperFilmDto.getFilmDto().getActorsDto().stream()
+                .map(ActorDto::getId)
+                .collect(Collectors.toSet());
+        wrapperFilmDto.setSelectedIdActors(selectedIds);
+        return wrapperFilmDto;
+    }
 
 }

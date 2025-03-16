@@ -10,36 +10,53 @@
 <body>
 <div class="form-container">
     <h3>Обновить фильм</h3>
-    <form th:action="@{/update}" th:object="${filmDto}" method="post">
-        <input type="hidden" th:field="*{id}">
+    <form th:action="@{/update}" th:object="${wrapperFilmDto}" method="post">
+        <input type="hidden" th:field="*{filmDto.id}">
 
         <div class="form-group">
             <label for="title">Введите название:</label>
-            <input type="text" th:field="*{title}" id="title" class="form-control" placeholder="Название фильма" required>
+            <input type="text" th:field="*{filmDto.title}" id="title" class="form-control" placeholder="Название фильма"
+                   required>
         </div>
 
         <div class="form-group">
             <label for="description">Введите описание:</label>
-            <input type="text" th:field="*{description}" id="description" class="form-control" placeholder="Описание фильма" required>
+            <input type="text" th:field="*{filmDto.description}" id="description" class="form-control"
+                   placeholder="Описание фильма" required>
         </div>
 
         <div class="form-group">
             <label for="year">Введите год выпуска:</label>
-            <input type="number" th:field="*{year}" id="year" class="form-control" placeholder="Год выпуска" required>
+            <input type="number" th:field="*{filmDto.year}" id="year" class="form-control" placeholder="Год выпуска"
+                   required>
         </div>
 
         <div class="form-group">
             <label for="genre">Введите жанр:</label>
-            <input name="text" th:field="*{genre}" id="genre" class="form-control" placeholder="Жанр фильма" required>
+            <input name="text" th:field="*{filmDto.genre}" id="genre" class="form-control" placeholder="Жанр фильма"
+                   required>
         </div>
 
         <div class="form-group">
             <label for="director">Выберите режиссера:</label>
-            <select th:field="*{director.id}" id="director" class="form-control" required>
+            <select th:field="*{filmDto.director.id}" id="director" class="form-control" required>
                 <option value="" selected>--- Выберите режиссера ---</option>
-                <option th:each="director : ${allDirectors}"
+                <option th:each="director : ${wrapperFilmDto.allDirectors}"
                         th:value="${director.id}"
                         th:text="${director.directorName} + ' ' + ${director.directorSurname}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="actors">Выберите актеров:</label>
+            <p class="hint">Зажмите <strong>Ctrl</strong> (или <strong>Cmd</strong> на Mac), чтобы выбрать несколько
+                актеров (добавить к имеющимся в фильме).</p>
+            <select th:field="*{selectedIdActors}" id="actors" class="form-control" multiple="multiple" required>
+                <option th:each="actor : ${wrapperFilmDto.allActors}"
+                        th:value="${actor.id}"
+                        th:text="${actor.actorName} + ' ' + ${actor.actorSurname}"
+                        th:selected="${wrapperFilmDto.selectedIdActors.contains(actor.id)}">
+
                 </option>
             </select>
         </div>

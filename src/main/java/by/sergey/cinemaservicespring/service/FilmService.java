@@ -29,4 +29,6 @@ public interface FilmService {
 
     void saveOrUpdateFilmWithActors(WrapperFilmDto wrapperFilmDto);
 
+    WrapperFilmDto getFilmForUpdate(Long id);
+
 }

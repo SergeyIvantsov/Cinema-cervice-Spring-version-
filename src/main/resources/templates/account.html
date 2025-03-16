@@ -32,12 +32,13 @@
             <thead class="desired-films-header">
             <tr>
                 <th sec:authorize="hasAuthority('ADMIN')"><b>Фильм id</b></th>
-                <th><b>Название</b></th>
-                <th><b>Описание фильма</b></th>
-                <th><b>Год выпуска</b></th>
-                <th><b>Жанр</b></th>
-                <th><b>Режиссер</b></th>
-                <th><b>Действия</b></th>
+                <th><B>Название</B></th>
+                <th><B>Описание фильма</B></th>
+                <th><B>Год выпуска</B></th>
+                <th><B>Жанр</B></th>
+                <th><B>Режиссер</B></th>
+                <th><B>Актеры</B></th>
+                <th><B>Действия</B></th>
             </tr>
             </thead>
             <tbody>
@@ -50,6 +51,14 @@
                 <td>
                     <span th:text="${film.director.directorName}"></span>
                     <span th:text="${film.director.directorSurname}"></span>
+                </td>
+
+                <td>
+                    <ul>
+                        <li th:each="actor : ${film.actorsDto}"
+                            th:text="${actor.actorName} + ' ' + ${actor.actorSurname}">...
+                        </li>
+                    </ul>
                 </td>
                 <td>
                     <form th:action="@{delete_desired_film}" method="post">
@@ -67,12 +76,13 @@
             <thead class="watched-films-header">
             <tr>
                 <th sec:authorize="hasAuthority('ADMIN')"><b>Фильм id</b></th>
-                <th><b>Название</b></th>
-                <th><b>Описание фильма</b></th>
-                <th><b>Год выпуска</b></th>
-                <th><b>Жанр</b></th>
-                <th><b>Режиссер</b></th>
-                <th><b>Действия</b></th>
+                <th><B>Название</B></th>
+                <th><B>Описание фильма</B></th>
+                <th><B>Год выпуска</B></th>
+                <th><B>Жанр</B></th>
+                <th><B>Режиссер</B></th>
+                <th><B>Актеры</B></th>
+                <th><B>Действия</B></th>
             </tr>
             </thead>
             <tbody>
@@ -85,6 +95,13 @@
                 <td>
                     <span th:text="${film.director.directorName}"></span>
                     <span th:text="${film.director.directorSurname}"></span>
+                </td>
+                <td>
+                    <ul>
+                        <li th:each="actor : ${film.actorsDto}"
+                            th:text="${actor.actorName} + ' ' + ${actor.actorSurname}">...
+                        </li>
+                    </ul>
                 </td>
                 <td>
                     <form th:action="@{delete_watched_film}" method="post">

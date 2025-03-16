@@ -50,7 +50,9 @@
 
         <div class="form-group">
             <label for="actors">Выберите актеров:</label>
-            <select th:field="*{actorsMass}" id="actors" class="form-control" multiple="multiple" required>
+            <p class="hint">Зажмите <strong>Ctrl</strong> (или <strong>Cmd</strong> на Mac), чтобы выбрать несколько
+                актеров.</p>
+            <select th:field="*{selectedIdActors}" id="actors" class="form-control" multiple="multiple" required>
                 <option th:each="actor : ${wrapperFilm.allActors}"
                         th:value="${actor.id}"
                         th:text="${actor.actorName} + ' ' + ${actor.actorSurname}">
