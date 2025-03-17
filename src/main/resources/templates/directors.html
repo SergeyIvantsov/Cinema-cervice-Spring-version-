@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xsi:schemaLocation="http://www.springframework.org/schema/security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Все режиссеры</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleFilms.css}"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <div class="menu">
+            <a th:href="@{/menu}"><h3>Меню</h3></a>
+        </div>
+        <div>
+            <form method="post" th:action="@{/logout}">
+                <button type="submit" class="logout-button">LOGOUT</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="table-container">
+        <!--        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/addDirectorForm}">-->
+        <!--            <button class="add-director-button">Добавить нового режиссера</button>-->
+        <!--        </a>-->
+        <h3>Список всех режиссеров:</h3>
+        <table>
+            <tr>
+                <th sec:authorize="hasAuthority('ADMIN')"><B>Id режиссера</B></th>
+                <th><B>Имя</B></th>
+                <th><B>Фамилия</B></th>
+                <th sec:authorize="hasAuthority('ADMIN')"><B>Действия</B></th>
+            </tr>
+            <tr th:each="director : ${allDirectors}">
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${director.id}">...</td>
+                <td th:utext="${director.directorName}">...</td>
+                <td th:utext="${director.directorSurname}">...</td>
+
+                <td sec:authorize="hasAuthority('ADMIN')" class="action-buttons">
+                    <form th:action="@{/addUpdateForm}" method="get">
+                        <button type="submit" name="id" th:value="${director.id}" class="edit-button">Редактировать
+                        </button>
+                    </form>
+                    <for th:action="@{/deleteDirector}" method="post">
+                        <button type="submit" name="id" th:value="${director.id}" class="delete-button">Удалить</button>
+                    </for>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

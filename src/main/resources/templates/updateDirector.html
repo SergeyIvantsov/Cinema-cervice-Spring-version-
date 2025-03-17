@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить режиссера</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleUpdate.css}"/>
+</head>
+
+<body>
+<div class="form-container">
+    <h3>Обновить режиссера</h3>
+    <form th:action="@{/updateDirector}" th:object="${directorUpdate}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <div class="form-group">
+            <label for="title">Введите имя:</label>
+            <input type="text" th:field="*{directorName}" id="title" class="form-control"
+                   placeholder="имя режиссера" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Введите фамилию:</label>
+            <input type="text" th:field="*{directorSurname}" id="description" class="form-control"
+                   placeholder="фамилия режиссера" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Обновить режиссера</button>
+    </form>
+</div>
+<a th:href="@{/getDirectors}" class="back-link">Назад к списку режиссеров</a>
+
+</body>
+</html>

@@ -29,11 +29,22 @@ public class DirectorServiceImpl implements DirectorService {
 
 
     @Override
-    public DirectorDto save(DirectorDto directorDto) {
+    public DirectorDto saveOrUpdate(DirectorDto directorDto) {
         Director saveDir = directorRepository.save(ConverterUtil.convertDirector(directorDto));
         DirectorDto addDirectorDto = ConverterUtil.convertDirector(saveDir);
         return addDirectorDto;
     }
+
+    @Override
+    public DirectorDto get(Long id) {
+        return ConverterUtil.convertDirector(directorRepository.getReferenceById(id));
+    }
+
+    @Override
+    public void delete(Long id) {
+        directorRepository.deleteById(id);
+    }
+
 
 
 
