@@ -1,7 +1,6 @@
 package by.sergey.cinemaservicespring.controller;
 
 import by.sergey.cinemaservicespring.service.AccountService;
-import by.sergey.cinemaservicespring.service.FilmService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class AccountController {
     private final AccountService accountService;
-    private final FilmService filmService;
 
     @GetMapping("/getAccount")
     public String showAccountDto(Model model) {

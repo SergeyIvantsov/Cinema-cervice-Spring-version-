@@ -19,10 +19,6 @@ public interface FilmService {
 
     List<FilmDto> getFilmsByDirectorId(Long directorId);
 
-    /*List<FilmDto> filtersFilms(String title, Integer year, String genre, Integer yearFrom, Integer yearTo, Pageable pageable);
-
-    long getTotalFilmCount(String title, Integer year, String genre, Integer yearFrom, Integer yearTo);*/
-
     Page<FilmDto> getFilmsByFilter(FilmFilterDto filmFilter);
 
     WrapperFilmDto createFilm();

@@ -39,14 +39,18 @@
 
         <div class="form-group">
             <label for="director">Выберите режиссера:</label>
-            <select th:field="*{filmDto.director.id}" id="director" class="form-control" required>
+            <select th:field="*{filmDto.director.id}" id="director" class="form-control" required
+                    onchange="if (this.value =='newDirector') window.location.href='/addDirectorForm'">
                 <option value="" selected>--- Выберите режиссера ---</option>
                 <option th:each="director : ${wrapperFilm.allDirectors}"
                         th:value="${director.id}"
                         th:text="${director.directorName} + ' ' + ${director.directorSurname}">
                 </option>
+
+                <option value="newDirector" style="font-weight: bold; color: blue;">➕ Добавить нового режиссера</option>
             </select>
         </div>
+
 
         <div class="form-group">
             <label for="actors">Выберите актеров:</label>

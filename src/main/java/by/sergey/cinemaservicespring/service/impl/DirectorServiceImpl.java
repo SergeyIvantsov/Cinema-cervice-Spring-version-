@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,6 +26,16 @@ public class DirectorServiceImpl implements DirectorService {
                 .map(ConverterUtil::convertDirector)
                 .collect(Collectors.toSet());
     }
+
+
+    @Override
+    public DirectorDto save(DirectorDto directorDto) {
+        Director saveDir = directorRepository.save(ConverterUtil.convertDirector(directorDto));
+        DirectorDto addDirectorDto = ConverterUtil.convertDirector(saveDir);
+        return addDirectorDto;
+    }
+
+
 
 
 }

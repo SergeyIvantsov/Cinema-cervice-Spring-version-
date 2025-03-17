@@ -173,4 +173,11 @@
         </insert>
 
     </changeSet>
+
+    <changeSet id="drop_28" author="sergey">
+        <delete tableName="actors">
+            <where>id=28</where>
+        </delete>
+
+    </changeSet>
 </databaseChangeLog>

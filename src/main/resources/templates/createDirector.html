@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление режиссера</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleCreate.css}"/>
+</head>
+
+<body>
+<div class="form-container">
+    <h3>Добавить нового режиссера</h3>
+    <form th:action="@{/saveDirector}" th:object="${directorDto}" method="post">
+        <div class="form-group">
+            <label for="name">Имя:</label>
+            <input type="text" th:field="*{directorName}" id="name" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="surname">Фамилия:</label>
+            <input type="text" th:field="*{directorSurname}" id="surname" class="form-control" required>
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <a th:href="@{/createFilm}" class="back-link">Назад к добавлению фильма</a>
+</div>
+</body>
+
+</html>
