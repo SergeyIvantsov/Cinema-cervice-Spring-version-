@@ -8,6 +8,9 @@
     <include file="db/changelog/V1.0.1/2025-02-02-add-new-column-for-films.xml"/>
     <include file="db/changelog/V1.0.1/2025-02-02-fill-id_director-in-films.xml"/>
     <include file="db/changelog/V1.0.1/2025-03-09-fill-actors-table.xml"/>
+    <include file="/db/changelog/V1.0.1/2025-03-17-create-film-details-table.xml"/>
+    <include file="/db/changelog/V1.0.1/2025-03-17-fill-film-details-table.xml"/>
+    <include file="/db/changelog/V1.0.1/2025-03-17-addAndFill-details-id-for-films-table.xml"/>
 
 
 

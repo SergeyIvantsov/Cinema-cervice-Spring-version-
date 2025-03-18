@@ -1,12 +1,7 @@
 package by.sergey.cinemaservicespring.entity;
 
-import lombok.*;
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -33,7 +28,7 @@ public class Director implements Serializable {
     @Column(name = "director_surname")
     private String directorSurname;
 
-    @OneToMany (mappedBy = "director")
+    @OneToMany(mappedBy = "director", cascade = CascadeType.REMOVE)
     private Set<Film> filmsByDirector = new HashSet<>();
 
 }

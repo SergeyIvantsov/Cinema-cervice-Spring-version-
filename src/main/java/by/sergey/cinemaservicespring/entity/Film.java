@@ -35,7 +35,7 @@ public class Film implements Serializable {
     private String genre;
 
     @ManyToOne (cascade={CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinColumn (name = "director_id")
+    @JoinColumn(name = "director_id")
     private Director director;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE,
@@ -55,6 +55,9 @@ public class Film implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "actor_id"))
     private Set<Actor> actors = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    private FilmDetails filmDetails;
 
 
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <changeSet id="fill_film_details" author="sergey">
+
+        <insert tableName="film_details">
+            <column name="id" value="1"/>
+            <column name="country" value="СССР"/>
+            <column name="duration" value="100"/>
+            <column name="budget" value="0.600"/>
+            <column name="rating" value="8.8"/>
+            <column name="price_for_month" value="5"/>
+            <column name="price_for_year" value="50"/>
+        </insert>
+
+
+    </changeSet>
+</databaseChangeLog>

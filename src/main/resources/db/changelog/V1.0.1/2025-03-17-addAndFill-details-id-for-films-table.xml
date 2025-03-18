@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+
+    <changeSet id="add_foreign_key" author="sergey">
+
+
+        <addColumn tableName="films">
+            <column name="details_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint
+                baseTableName="films"
+                baseColumnNames="details_id"
+                referencedTableName="film_details"
+                referencedColumnNames="id"
+                constraintName="fk_for_film_details"/>
+    </changeSet>
+
+    <changeSet id="update_existing_films" author="sergey">
+        <update tableName="films">
+            <column name="details_id" value="1"/>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>

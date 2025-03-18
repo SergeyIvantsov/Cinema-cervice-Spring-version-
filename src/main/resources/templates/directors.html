@@ -24,9 +24,6 @@
 
 
     <div class="table-container">
-        <!--        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/addDirectorForm}">-->
-        <!--            <button class="add-director-button">Добавить нового режиссера</button>-->
-        <!--        </a>-->
         <h3>Список всех режиссеров:</h3>
         <table>
             <tr>
@@ -45,9 +42,9 @@
                         <button type="submit" name="id" th:value="${director.id}" class="edit-button">Редактировать
                         </button>
                     </form>
-                    <for th:action="@{/deleteDirector}" method="post">
+                    <form th:action="@{/deleteDirector}" method="post">
                         <button type="submit" name="id" th:value="${director.id}" class="delete-button">Удалить</button>
-                    </for>
+                    </form>
                 </td>
             </tr>
         </table>
