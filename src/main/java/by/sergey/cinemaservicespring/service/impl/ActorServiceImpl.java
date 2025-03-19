@@ -2,9 +2,11 @@ package by.sergey.cinemaservicespring.service.impl;
 
 import by.sergey.cinemaservicespring.dto.ActorDto;
 import by.sergey.cinemaservicespring.entity.Actor;
+import by.sergey.cinemaservicespring.entity.Film;
 import by.sergey.cinemaservicespring.repository.ActorRepository;
 import by.sergey.cinemaservicespring.service.ActorService;
 import by.sergey.cinemaservicespring.utils.converter.ConverterUtil;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,20 @@ public class ActorServiceImpl implements ActorService {
         Set<ActorDto> allActorsDto = allActorsById.stream()
                 .map(ConverterUtil::convertActor).collect(Collectors.toSet());
         return allActorsDto;
+    }
+
+    @Override
+    public void delete(Long id) {
+        Actor actor = actorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Actor not found"));
+
+        // Удаляем связи актёра с фильмами
+        for (Film film : actor.getFilmsForActors()) {
+            film.getActors().remove(actor);
+        }
+
+        actorRepository.delete(actor);
+        //actorRepository.deleteById(id);
     }
 
 

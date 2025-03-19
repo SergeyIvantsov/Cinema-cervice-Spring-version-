@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.context.request.NativeWebRequest;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -26,7 +27,7 @@ public class WebSecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, NativeWebRequest nativeWebRequest) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests.requestMatchers(antMatcher("/createFilm")).hasAuthority("ADMIN")
@@ -49,7 +50,9 @@ public class WebSecurityConfig {
                                 .requestMatchers(antMatcher("/deleteDirector")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/addActorForm")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/saveActor")).hasAuthority("ADMIN")
-                                .requestMatchers(antMatcher("/getActors")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/getActors")).hasAnyAuthority("ADMIN", "USER")
+                                .requestMatchers(antMatcher("/updateActor")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/deleteActor")).hasAuthority("ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .defaultSuccessUrl("/menu", true)

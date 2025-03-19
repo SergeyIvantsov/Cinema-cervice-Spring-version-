@@ -15,5 +15,7 @@ public interface ActorService {
 
     Set<ActorDto> findActorsByIds(Set<Long> ids);
 
+    void delete(Long id);
+
 
 }

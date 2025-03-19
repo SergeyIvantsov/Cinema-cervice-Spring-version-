@@ -38,11 +38,11 @@
                 <td th:utext="${actor.actorSurname}">...</td>
 
                 <td sec:authorize="hasAuthority('ADMIN')" class="action-buttons">
-                    <form th:action="@{/addUpdateForm}" method="get">
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/showUpdateActor}" method="get">
                         <button type="submit" name="id" th:value="${actor.id}" class="edit-button">Редактировать
                         </button>
                     </form>
-                    <form th:action="@{/deleteActor}" method="post">
+                    <form sec:authorize="hasAuthority('ADMIN')" th:action="@{/deleteActor}" method="post">
                         <button type="submit" name="id" th:value="${actor.id}" class="delete-button">Удалить</button>
                     </form>
                 </td>

@@ -26,9 +26,8 @@ public class Actor implements Serializable {
     @Column(name = "actor_surname")
     private String actorSurname;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH,
-            CascadeType.PERSIST},fetch = FetchType.LAZY,
-            mappedBy = "actors")
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            fetch = FetchType.LAZY, mappedBy = "actors")
     private Set<Film> filmsForActors = new HashSet<>();
 
 }

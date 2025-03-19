@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .form-container {
@@ -44,6 +44,8 @@ label {
     border-radius: 4px;
     font-size: 14px;
     box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
 }
 
 .form-control:focus {
@@ -61,6 +63,7 @@ button[type="submit"] {
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 button[type="submit"]:hover {
@@ -84,4 +87,25 @@ select.form-control {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+.hint {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #0056b3;
 }

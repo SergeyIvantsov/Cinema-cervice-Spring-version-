@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,6 +31,24 @@ public class ActorController {
     public String getActors(Model model) {
         model.addAttribute("allActors", actorService.getAll());
         return "actors";
+    }
+
+    @GetMapping("/showUpdateActor")
+    public String addUpdateForm(@RequestParam("id") Long id, Model model) {
+        model.addAttribute("actorUpdate", actorService.getReferenceById(id));
+        return "updateActor";
+    }
+
+    @PostMapping("/updateActor")
+    public String updateActor(@ModelAttribute("actorUpdate") ActorDto actorDto) {
+        actorService.saveOrUpdate(actorDto);
+        return "redirect:/getActors";
+    }
+
+    @PostMapping("/deleteActor")
+    public String delete(@RequestParam("id") Long id) {
+        actorService.delete(id);
+        return "redirect:/getActors";
     }
 
 
