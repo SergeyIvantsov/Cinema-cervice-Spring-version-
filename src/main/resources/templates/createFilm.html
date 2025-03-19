@@ -56,12 +56,17 @@
             <label for="actors">Выберите актеров:</label>
             <p class="hint">Зажмите <strong>Ctrl</strong> (или <strong>Cmd</strong> на Mac), чтобы выбрать несколько
                 актеров.</p>
-            <select th:field="*{selectedIdActors}" id="actors" class="form-control" multiple="multiple" required>
+            <select th:field="*{selectedIdActors}" id="actors" class="form-control" multiple="multiple" required
+            <!--onchange="if (this.value =='newActor') window.location.href='/addActorForm'"-->>
                 <option th:each="actor : ${wrapperFilm.allActors}"
                         th:value="${actor.id}"
                         th:text="${actor.actorName} + ' ' + ${actor.actorSurname}">
                 </option>
+
+            <!--                <option value="newActor" style="font-weight: bold; color: blue;">➕ Добавить нового актера</option>-->
             </select>
+            <br>
+            <a th:href="@{/addActorForm}" class="btn">➕ Добавить нового актера</a>
         </div>
 
         <button type="submit">Добавить фильм</button>

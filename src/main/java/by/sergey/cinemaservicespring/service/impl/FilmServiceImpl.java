@@ -36,6 +36,7 @@ public class FilmServiceImpl implements FilmService {
 
     private final DirectorRepository directorRepository;
     private final ActorRepository actorRepository;
+    private final AccountServiceImpl accountServiceImpl;
 
     @Override
     public FilmDto get(Long id) {
@@ -138,7 +139,6 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public void saveOrUpdateFilmWithActors(WrapperFilmDto wrapperFilmDto) {
         Set<Long> actorIds = wrapperFilmDto.getSelectedIdActors();
-
         Set<ActorDto> actorsDto = actorService.findActorsByIds(actorIds);
         wrapperFilmDto.getFilmDto().setActorsDto(actorsDto);
         saveOrUpdate(wrapperFilmDto.getFilmDto());

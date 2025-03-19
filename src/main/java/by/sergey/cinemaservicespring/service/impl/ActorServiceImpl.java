@@ -20,11 +20,11 @@ public class ActorServiceImpl implements ActorService {
     private final ActorRepository actorRepository;
 
     @Override
-    public ActorDto save(ActorDto actorDto) {
-        Actor actor = ConverterUtil.convertActor(actorDto);
-        Actor savedActor = actorRepository.save(actor);
-        if (savedActor != null) {
-            return ConverterUtil.convertActor(savedActor);
+    public ActorDto saveOrUpdate(ActorDto actorDto) {
+        Actor actor = actorRepository.save(ConverterUtil.convertActor(actorDto));
+        if (actor != null) {
+            ActorDto addActorDto = ConverterUtil.convertActor(actor);
+            return addActorDto;
         } else
             return null;
     }
@@ -39,7 +39,7 @@ public class ActorServiceImpl implements ActorService {
 
     @Override
     public Actor getReferenceById(Long id) {
-       return actorRepository.findById(id).get();
+        return actorRepository.findById(id).get();
     }
 
     @Override
@@ -49,7 +49,6 @@ public class ActorServiceImpl implements ActorService {
                 .map(ConverterUtil::convertActor).collect(Collectors.toSet());
         return allActorsDto;
     }
-
 
 
 }

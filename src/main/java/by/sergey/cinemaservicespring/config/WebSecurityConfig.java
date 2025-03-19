@@ -43,9 +43,12 @@ public class WebSecurityConfig {
                                 .requestMatchers(antMatcher("/delete_desired_film")).hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers(antMatcher("/delete_watched_film")).hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers(antMatcher("/addUpdateForm")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/saveDirector")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/updateDirector")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/getDirectors")).hasAnyAuthority("ADMIN", "USER")
                                 .requestMatchers(antMatcher("/deleteDirector")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/addActorForm")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/saveActor")).hasAuthority("ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .defaultSuccessUrl("/menu", true)

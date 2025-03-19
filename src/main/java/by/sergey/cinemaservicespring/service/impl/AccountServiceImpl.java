@@ -1,7 +1,6 @@
 package by.sergey.cinemaservicespring.service.impl;
 
 import by.sergey.cinemaservicespring.dto.AccountDto;
-import by.sergey.cinemaservicespring.dto.FilmDto;
 import by.sergey.cinemaservicespring.entity.Account;
 import by.sergey.cinemaservicespring.entity.Film;
 import by.sergey.cinemaservicespring.entity.User;
@@ -15,11 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -62,7 +59,6 @@ public class AccountServiceImpl implements AccountService {
         return film.getTitle();
     }
 
-
     @Override
     public void deleteFilmFromDesireList(Long filmId) {
         Account account = getAccount();
@@ -81,10 +77,29 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(account);
     }
 
+    @Override
+    public Set<Long> getWatchedFilms() {
+        Account account = getAccount();
+        return account.getWatchedFilms()
+                .stream()
+                .map(Film::getId)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Long> getDesiredFilms() {
+        Account account = getAccount();
+        return account.getDesiredFilms()
+                .stream().map(Film::getId)
+                .collect(Collectors.toSet());
+    }
+
     private Account getAccount(){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUserName(userName);
         Optional<Account> acc = Optional.ofNullable(accountRepository.findByUser(user));
         return acc.get();
     }
+
+
 }

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequiredArgsConstructor
 public class AccountController {
+
     private final AccountService accountService;
 
     @GetMapping("/getAccount")
@@ -24,7 +25,6 @@ public class AccountController {
         }
         return "account";
     }
-
 
     @PostMapping("/addWishes")
     public String addToWishes(@RequestParam("idFilm") Long idFilm, RedirectAttributes redirectAttributes) {
@@ -39,7 +39,7 @@ public class AccountController {
     @PostMapping("/addWatches")
     public String addToWatches(@RequestParam("idWatchedFilm") Long idWatchedFilm, RedirectAttributes redirectAttributes) {
         try {
-            redirectAttributes.addFlashAttribute("messageDesired", "Фильм " + "\"" +accountService.addFilmToWatchedList(idWatchedFilm) + "\"" + " добавлен в список просмотренных!");
+            redirectAttributes.addFlashAttribute("messageDesired", "Фильм " + "\"" + accountService.addFilmToWatchedList(idWatchedFilm) + "\"" + " добавлен в список просмотренных!");
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("errorDesired", e.getMessage());
         }
@@ -57,7 +57,6 @@ public class AccountController {
         accountService.deleteFilmFromWatchedList(idWatched);
         return "redirect:/getAccount";
     }
-
 
 
 }

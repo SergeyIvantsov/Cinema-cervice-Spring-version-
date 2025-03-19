@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface ActorService {
 
-    ActorDto save(ActorDto actorDto);
+    ActorDto saveOrUpdate(ActorDto actorDto);
 
     Set<ActorDto> findAll();
 

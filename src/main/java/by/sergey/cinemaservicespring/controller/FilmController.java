@@ -3,6 +3,7 @@ package by.sergey.cinemaservicespring.controller;
 import by.sergey.cinemaservicespring.dto.FilmDto;
 import by.sergey.cinemaservicespring.dto.FilmFilterDto;
 import by.sergey.cinemaservicespring.dto.WrapperFilmDto;
+import by.sergey.cinemaservicespring.service.AccountService;
 import by.sergey.cinemaservicespring.service.ActorService;
 import by.sergey.cinemaservicespring.service.DirectorService;
 import by.sergey.cinemaservicespring.service.FilmService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class FilmController {
 
     private final FilmService filmService;
+    private final AccountService accountService;
     private final DirectorService directorService;
     private final ActorService actorService;
 

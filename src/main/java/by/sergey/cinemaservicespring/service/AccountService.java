@@ -1,9 +1,8 @@
 package by.sergey.cinemaservicespring.service;
 
 import by.sergey.cinemaservicespring.dto.AccountDto;
-import by.sergey.cinemaservicespring.entity.Account;
 
-import java.util.Optional;
+import java.util.Set;
 
 
 public interface AccountService {
@@ -17,5 +16,9 @@ public interface AccountService {
     void deleteFilmFromWatchedList(Long filmId);
 
     AccountDto findAccountByUsername();
+
+    Set<Long> getWatchedFilms();
+
+    Set<Long> getDesiredFilms();
 
 }

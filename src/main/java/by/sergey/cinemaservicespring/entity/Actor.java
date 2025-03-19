@@ -1,12 +1,7 @@
 package by.sergey.cinemaservicespring.entity;
 
-import lombok.*;
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,7 +18,6 @@ import java.util.Set;
 public class Actor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Long id;
 
     @Column(name = "actor_name")

@@ -97,17 +97,20 @@
                     </form>
                     <div style="margin-top: 10px;">
                         <form th:action="@{/addWishes}" method="post">
-                            <button type="submit" name="idFilm" th:value="${film.id}" class="wish-button">Добавить в желаемые</button>
+                            <button type="submit" name="idFilm" th:value="${film.id}"
+                                    class="wish-button">Добавить в желаемые
+                            </button>
                         </form>
                     </div>
                     <div style="margin-top: 10px;">
                         <form th:action="@{/addWatches}" method="post">
-                            <button type="submit" name="idWatchedFilm" th:value="${film.id}" class="watch-button">Добавить в просмотренные</button>
+                            <button type="submit" name="idWatchedFilm" th:value="${film.id}"
+                                    class="watch-button">Добавить в просмотренные
+                            </button>
                         </form>
 <!--                        сделать неактивными кнопки после их нажатия для добавления в список-->
 <!--                        добавить детали-->
 <!--                        контроллер адвайс, эксептион хэндлер (обработка исключений)-->
-
                     </div>
                 </td>
             </tr>
