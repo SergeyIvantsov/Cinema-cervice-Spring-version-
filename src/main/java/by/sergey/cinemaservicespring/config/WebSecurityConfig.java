@@ -49,6 +49,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(antMatcher("/deleteDirector")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/addActorForm")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/saveActor")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/getActors")).hasAuthority("ADMIN")
                                 .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .defaultSuccessUrl("/menu", true)

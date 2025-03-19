@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+      xsi:schemaLocation="http://www.springframework.org/schema/security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Все актеры</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleFilms.css}"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <div class="menu">
+            <a th:href="@{/menu}"><h3>Меню</h3></a>
+        </div>
+        <div>
+            <form method="post" th:action="@{/logout}">
+                <button type="submit" class="logout-button">LOGOUT</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="table-container">
+        <h3>Список всех актеров:</h3>
+        <table>
+            <tr>
+                <th sec:authorize="hasAuthority('ADMIN')"><B>Id актера</B></th>
+                <th><B>Имя</B></th>
+                <th><B>Фамилия</B></th>
+                <th sec:authorize="hasAuthority('ADMIN')"><B>Действия</B></th>
+            </tr>
+            <tr th:each="actor : ${allActors}">
+                <td sec:authorize="hasAuthority('ADMIN')" th:utext="${actor.id}">...</td>
+                <td th:utext="${actor.actorName}">...</td>
+                <td th:utext="${actor.actorSurname}">...</td>
+
+                <td sec:authorize="hasAuthority('ADMIN')" class="action-buttons">
+                    <form th:action="@{/addUpdateForm}" method="get">
+                        <button type="submit" name="id" th:value="${actor.id}" class="edit-button">Редактировать
+                        </button>
+                    </form>
+                    <form th:action="@{/deleteActor}" method="post">
+                        <button type="submit" name="id" th:value="${actor.id}" class="delete-button">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

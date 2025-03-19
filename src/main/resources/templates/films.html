@@ -47,6 +47,10 @@
             <button class="show-directors-button">Показать всех режиссеров</button>
         </a>
 
+        <a th:href="@{/getActors}">
+            <button class="show-directors-button">Показать всех актеров</button>
+        </a>
+
         <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/createFilm}">
             <button class="add-film-button">Добавить новый фильм</button>
         </a>

@@ -15,15 +15,21 @@ public class ActorController {
     private final ActorService actorService;
 
     @GetMapping("/addActorForm")
-    public String addDirectorForm(Model model) {
+    public String addActorForm(Model model) {
         model.addAttribute("actorDto", new ActorDto());
         return "createActor";
     }
 
     @PostMapping("/saveActor")
-    public String saveDirector(@ModelAttribute("actorDto") ActorDto actorDto) {
+    public String saveActor(@ModelAttribute("actorDto") ActorDto actorDto) {
         actorService.saveOrUpdate(actorDto);
         return "redirect:/createFilm";
+    }
+
+    @GetMapping("/getActors")
+    public String getActors(Model model) {
+        model.addAttribute("allActors", actorService.getAll());
+        return "actors";
     }
 
 

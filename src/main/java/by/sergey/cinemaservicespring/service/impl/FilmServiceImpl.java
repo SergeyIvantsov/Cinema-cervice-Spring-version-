@@ -118,7 +118,7 @@ public class FilmServiceImpl implements FilmService {
         directors.addAll(directorService.getAll());
         wrapperFilmDto.setAllDirectors(directors);
         Set<ActorDto> actors = new HashSet<>();
-        actors.addAll(actorService.findAll());
+        actors.addAll(actorService.getAll());
         wrapperFilmDto.setAllActors(actors);
         return wrapperFilmDto;
     }
@@ -150,7 +150,7 @@ public class FilmServiceImpl implements FilmService {
         WrapperFilmDto wrapperFilmDto = new WrapperFilmDto();
         wrapperFilmDto.setFilmDto(get(id));
         wrapperFilmDto.setAllDirectors(directorService.getAll());
-        wrapperFilmDto.setAllActors(actorService.findAll());
+        wrapperFilmDto.setAllActors(actorService.getAll());
         Set<Long> selectedIds = wrapperFilmDto.getFilmDto().getActorsDto().stream()
                 .map(ActorDto::getId)
                 .collect(Collectors.toSet());

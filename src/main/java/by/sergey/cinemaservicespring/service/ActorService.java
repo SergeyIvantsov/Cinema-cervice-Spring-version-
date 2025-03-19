@@ -9,7 +9,7 @@ public interface ActorService {
 
     ActorDto saveOrUpdate(ActorDto actorDto);
 
-    Set<ActorDto> findAll();
+    Set<ActorDto> getAll();
 
     Actor getReferenceById(Long id);
 

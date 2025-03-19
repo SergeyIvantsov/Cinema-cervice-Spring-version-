@@ -30,7 +30,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public Set<ActorDto> findAll() {
+    public Set<ActorDto> getAll() {
         return actorRepository.findAll()
                 .stream()
                 .map(ConverterUtil::convertActor)
