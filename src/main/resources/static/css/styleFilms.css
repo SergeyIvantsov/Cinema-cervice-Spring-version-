@@ -70,6 +70,7 @@ h3 {
     background-color: #c82333;
 }
 
+
 .table-container {
     margin-top: 20px;
     width: 85%;
@@ -142,6 +143,16 @@ table td:nth-child(3) {
     background-color: #218838;
 }
 
+.buttons-container {
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+    align-items: center;
+}
+
+.buttons-container a {
+    display: flex;
+}
+
 .add-film-button {
     background-color: #007bff;
     color: white;
@@ -154,6 +165,35 @@ table td:nth-child(3) {
 .add-film-button:hover {
     background-color: #0056b3;
 }
+
+.show-directors-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.show-directors-button:hover {
+    background-color: #0056b3;
+}
+
+
+.show-actors-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.show-actors-button:hover {
+    background-color: #0056b3;
+}
+
+
 
 .pagination {
     margin-top: 20px;

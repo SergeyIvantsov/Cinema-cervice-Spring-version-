@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавить фильм</title>
-    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/styleCreate.css}"/>-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleCreate.css}"/>
 </head>
 
 <body>
@@ -56,7 +56,7 @@
             <label for="actors">Выберите актеров:</label>
             <p class="hint">Зажмите <strong>Ctrl</strong> (или <strong>Cmd</strong> на Mac), чтобы выбрать несколько
                 актеров.</p>
-            <select th:field="*{selectedIdActors}" id="actors" class="form-control" multiple="multiple" required
+            <select th:field="*{selectedIdActors}" id="actors" class="form-control" multiple="multiple" required>
                 <option th:each="actor : ${wrapperFilm.allActors}"
                         th:value="${actor.id}"
                         th:text="${actor.actorName} + ' ' + ${actor.actorSurname}">
@@ -75,3 +75,4 @@
 </body>
 
 </html>
+

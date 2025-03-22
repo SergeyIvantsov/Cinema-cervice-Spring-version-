@@ -48,7 +48,7 @@
         </a>
 
         <a th:href="@{/getActors}">
-            <button class="show-directors-button">Показать всех актеров</button>
+            <button class="show-actors-button">Показать всех актеров</button>
         </a>
 
         <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/createFilm}">
@@ -83,7 +83,6 @@
                         <span th:utext="${film.getDirector().getDirectorSurname()}"></span>
                     </a>
                 </td>
-
 
                 <td>
                     <ul>
